@@ -1,10 +1,13 @@
-import streamlit as st
+import streamlit as st 
 import pandas as pd
+import requests
 from urllib.parse import urlencode
 
 # Configuração inicial
 CSV_FILE = "prompts_database_complete.csv"
 COLUNAS = ['category', 'prompt']
+DEEPSEEK_API_KEY = "sk-44c48f425dc44730a5180c832ba604b3"
+DEEPSEEK_API_URL = "https://api.deepseek.com/v1/chat/completions"
 
 # Carregar dados do CSV
 def load_data():
@@ -29,6 +32,28 @@ def adaptar_prompt(prompt, modelo):
         return f"{prompt} ### Negative prompt: blurry, bad anatomy, worst quality"
     else:
         return prompt  # Caso escolha padrão
+
+# Função para melhorar o prompt usando a API DeepSeek
+def melhorar_prompt(prompt_base):
+    headers = {
+        "Authorization": f"Bearer {DEEPSEEK_API_KEY}",
+        "Content-Type": "application/json"
+    }
+    data = {
+        "model": "deepseek-chat",
+        "messages": [
+            {"role": "system", "content": "Você é um especialista em melhorar prompts para geração de imagens."},
+            {"role": "user", "content": f"Melhore este prompt para ser mais descritivo, criativo e detalhado:\n\n{prompt_base}"}
+        ],
+        "temperature": 0.7
+    }
+    response = requests.post(DEEPSEEK_API_URL, headers=headers, json=data)
+
+    if response.status_code == 200:
+        resposta = response.json()
+        return resposta['choices'][0]['message']['content']
+    else:
+        return f"Erro na melhoria do prompt: {response.status_code} - {response.text}"
 
 # Interface principal
 def main():
@@ -82,7 +107,12 @@ def main():
             height=200
         )
 
-        # Seletor de modelo de IA para adaptar o prompt
+        if st.button("Melhorar Prompt com DeepSeek"):
+            with st.spinner("Melhorando prompt..."):
+                melhorado = melhorar_prompt(st.session_state.prompt_editavel)
+                st.session_state.prompt_editavel = melhorado
+                st.success("Prompt melhorado com sucesso!")
+
         modelo_selecionado = st.selectbox(
             "Selecionar Adaptador de Prompt",
             ("Padrão", "Midjourney", "Fooocus", "Leonardo AI", "ComfyUI", "Automatic1111")
