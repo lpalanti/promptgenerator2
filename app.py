@@ -13,7 +13,7 @@ CSV_FILE = "prompts_database_complete.csv"
 GROQ_API_KEY = os.getenv("GROQ_API_KEY")
 GROQ_API_URL = "https://api.groq.com/openai/v1/chat/completions"
 
-print("API KEY:", os.getenv("GROQ_API_KEY"))
+print("🔑 API Key:", GROQ_API_KEY)
 
 # Modos de operação
 DEBUG = True  # Altere para False em produção
