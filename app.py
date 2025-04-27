@@ -8,8 +8,6 @@ CSV_FILE = "prompts_database_complete.csv"
 def load_data():
     return pd.read_csv(CSV_FILE)
 
-translation = row['Translation'] if pd.notnull(row['Translation']) else "Tradução não disponível"
-
 # Interface principal
 def main():
     st.title("🔮 Gerador de Prompts Inteligente")
