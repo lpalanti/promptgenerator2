@@ -42,7 +42,7 @@ def main():
             
             if st.form_submit_button("Adicionar ao Banco"):
                 if new_category and novo_prompt:
-                    new_´rpmpt = pd.DataFrame([{
+                    new_prompt = pd.DataFrame([{
                         'category': nova_categoria,
                         'prompt': new_prompt
                     }])
