@@ -43,7 +43,7 @@ def main():
             if st.form_submit_button("Adicionar ao Banco"):
                 if new_category and novo_prompt:
                     new_prompt = pd.DataFrame([{
-                        'category': nova_categoria,
+                        'category': new_category,
                         'prompt': new_prompt
                     }])
                     
