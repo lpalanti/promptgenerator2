@@ -10,8 +10,8 @@ from hashlib import md5
 # Configurações iniciais
 load_dotenv()
 CSV_FILE = "prompts_database_complete.csv"
-GROQ_API_KEY = os.getenv("GROQ_API_KEY")  # <<<< ALTERADO
-GROQ_API_URL = "https://api.groq.com/openai/v1/chat/completions"  # <<<< ALTERADO
+GROQ_API_KEY = os.getenv("GROQ_API_KEY")
+GROQ_API_URL = "https://api.groq.com/openai/v1/chat/completions"
 
 # Modos de operação
 DEBUG = True  # Altere para False em produção
@@ -78,7 +78,7 @@ def melhorar_prompt(prompt_base, ferramenta):
             GROQ_API_URL,
             headers=headers,
             json={
-                "model": "llama3-70b-8192",  # <<< Modelo recomendado da Groq
+                "model": "llama3-70b-8192",
                 "messages": [
                     {"role": "system", "content": f"{templates[ferramenta]['system']} Otimize para: {ferramenta}"},
                     {"role": "user", "content": f"OPTIMIZE PARA {ferramenta.upper()}:\n\n{prompt_base}"}
@@ -121,6 +121,7 @@ def melhorar_prompt(prompt_base, ferramenta):
         return prompt_base, "Erro na otimização"
 
 # ========== INTERFACE ==========
+
 def main():
     st.set_page_config(
         page_title="Otimizador de Prompts AI",
@@ -137,11 +138,7 @@ def main():
             --secondary: #28B463;
             --background: #FDFEFE;
         }
-
-        .stApp {
-            background-color: var(--background);
-        }
-
+        .stApp { background-color: var(--background); }
         .stButton>button {
             background: var(--primary) !important;
             color: white !important;
@@ -149,12 +146,10 @@ def main():
             transition: all 0.3s;
             padding: 0.5rem 1rem;
         }
-
         .stButton>button:hover {
             opacity: 0.9;
             transform: scale(0.98);
         }
-
         .prompt-card {
             padding: 1rem;
             margin: 0.5rem 0;
@@ -163,7 +158,6 @@ def main():
             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
             border: 1px solid #EAEDED;
         }
-
         [data-testid="stExpander"] {
             background: white !important;
             border-radius: 10px !important;
@@ -191,7 +185,7 @@ def main():
 
         if st.button("🚀 Otimizar Prompt", help="Clique para processar com IA"):
             if st.session_state.prompts:
-                with st.spinner("Processando com DeepSeek..."):
+                with st.spinner("Processando com Groq..."):
                     try:
                         prompt_base = "\n".join(st.session_state.prompts)
                         melhorado, negativo = melhorar_prompt(prompt_base, ferramenta)
@@ -239,7 +233,6 @@ def main():
                 with st.expander(f"📂 {categoria.upper()}", expanded=True):
                     prompts_categoria = df[df['category'] == categoria]['prompt']
                     for idx_prompt, prompt in enumerate(prompts_categoria):
-                        # Gera hash único para cada prompt
                         prompt_hash = md5(prompt.encode()).hexdigest()[:6]
                         btn_key = f"btn_{categoria}_{idx_prompt}_{prompt_hash}"
                         if st.button(
@@ -252,7 +245,6 @@ def main():
                                 st.session_state.prompts.append(prompt)
                                 st.rerun()
 
-        # Histórico de versões
         st.divider()
         st.subheader("🕒 Histórico de Versões")
         for item in st.session_state.historico[:5]:
@@ -266,3 +258,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
