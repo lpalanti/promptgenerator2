@@ -63,14 +63,12 @@ def main():
         with st.expander(f"**{category}**"):
             prompts = df[df['category'] == category]['prompt']
             
-            for prompt in prompts:
+            for i, prompt in enumerate(prompts):
                 col1, col2 = st.columns([0.8, 0.2])
                 with col1:
                     st.markdown(f"`{prompt}`")
                 with col2:
-                    if st.button("Selecionar", key=f"btn_{prompt}"):
-                        if prompt not in st.session_state.prompts_selecionados:
-                            st.session_state.prompts_selecionados.append(prompt)
+                    if st.button("Selecionar", key=f"btn_{category}_{i}"):
 
     # Mostrar prompts selecionados
     st.markdown("---")
