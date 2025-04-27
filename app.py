@@ -5,6 +5,7 @@ import traceback
 from datetime import datetime
 from dotenv import load_dotenv
 import os
+from hashlib import md5
 
 # Configurações iniciais
 load_dotenv()
@@ -242,17 +243,23 @@ def main():
         categorias = df['category'].unique()
         
         cols = st.columns(3)
-        for idx, prompt in enumerate(df[df['category'] == categoria]['prompt']):
-            btn_key = f"btn_{categoria}_{idx}_{prompt[:20]}"  # Chave única com índice
-            if st.button(
-            prompt,
-            key=btn_key,  # Chave única para cada botão
-            help=f"Adicionar: {prompt[:50]}...",
-            use_container_width=True
-            ):
-                if prompt not in st.session_state.prompts_selecionados:
-                    st.session_state.prompts_selecionados.append(prompt)
-                    st.rerun()
+        for idx_categoria, categoria in enumerate(categorias):
+            with cols[idx_categoria % 3]:
+                with st.expander(f"📂 {categoria.upper()}", expanded=True):
+                    prompts_categoria = df[df['category'] == categoria]['prompt']
+                    for idx_prompt, prompt in enumerate(prompts_categoria):
+                        # Gera hash único para cada prompt
+                        prompt_hash = md5(prompt.encode()).hexdigest()[:6]
+                        btn_key = f"btn_{categoria}_{idx_prompt}_{prompt_hash}"
+                        if st.button(
+                            prompt,
+                            key=btn_key,
+                            help=f"Adicionar: {prompt[:50]}...",
+                            use_container_width=True
+                        ):
+                            if prompt not in st.session_state.prompts:
+                                st.session_state.prompts.append(prompt)
+                                st.rerun()
 
         # Histórico de versões
         st.divider()
