@@ -17,18 +17,14 @@ def load_data():
 
 # Interface principal
 def main():
-    st.set_page_config(layout="wide")
+    st.set_page_config(layout="wide")  # Para usar melhor o espaço na tela
     st.title("🔮 Gerador de Prompts Inteligente")
 
-    # CSS personalizado
+    # CSS para reduzir o tamanho dos títulos dos expansores
     st.markdown("""
         <style>
         .streamlit-expanderHeader {
             font-size: 14px;
-        }
-        div[data-testid="stVerticalBlock"] > div:first-child {
-            position: fixed;
-            width: 25%;
         }
         </style>
     """, unsafe_allow_html=True)
@@ -40,93 +36,96 @@ def main():
         st.error(f"Erro ao carregar arquivo: {str(e)}")
         return
 
-    # Verificar estrutura do CSV
+    # Verificar estrutura
     if not all(col in df.columns for col in COLUNAS):
         st.error(f"CSV deve ter colunas: {', '.join(COLUNAS)}")
         return
 
-    # Gerenciamento de estado
+    # Sessão para armazenar seleções
     if 'prompts_selecionados' not in st.session_state:
         st.session_state.prompts_selecionados = []
 
-    # Barra lateral esquerda fixa para o prompt final
-    with st.sidebar:
-        st.header("📝 Prompt Final Montado")
-        
-        # Gera e edita o prompt
-        prompt_automatico = "\n".join(st.session_state.prompts_selecionados)
-        prompt_editavel = st.text_area(
-            "Edite seu prompt:",
-            value=prompt_automatico,
-            height=300,
-            key="prompt_editor"
-        )
-        
-        # Botões de ação
-        col1, col2 = st.columns(2)
-        with col1:
-            if st.button("📋 Copiar", use_container_width=True):
-                st.session_state.prompt_copiado = prompt_editavel
-                st.toast("Prompt copiado!", icon="✅")
-        with col2:
-            if st.button("🧹 Limpar", use_container_width=True, type="secondary"):
-                st.session_state.prompts_selecionados = []
-        
-        st.markdown("---")
-        
-        # Formulário para novos prompts
-        with st.expander("➕ Adicionar Novo Prompt", expanded=False):
-            with st.form("new_prompt"):
-                new_category = st.text_input("Nova Categoria")
-                new_prompt = st.text_area("Texto do Prompt")
-                
-                if st.form_submit_button("Salvar no Banco", use_container_width=True):
-                    if new_category and new_prompt:
-                        novo_prompt_df = pd.DataFrame([{
-                            'category': new_category,
-                            'prompt': new_prompt
-                        }])
-                        
-                        novo_prompt_df.to_csv(
-                            CSV_FILE,
-                            mode='a',
-                            header=False,
-                            sep=';',
-                            index=False
-                        )
-                        st.success("✅ Prompt salvo!")
-                    else:
-                        st.warning("⚠ Preencha todos os campos!")
-
-    # Área principal de seleção de prompts
+    # Captura seleção via URL
     query_params = st.query_params
     selected_prompt = query_params.get("select", None)
-    
-    colunas = st.columns(3)
+
+    # Sidebar para adicionar novos e visualizar prompt final
+    with st.sidebar:
+        st.header("📝 Prompt Final Montado")
+
+        # Gera o prompt final automaticamente
+        prompt_automatico = "\n".join(st.session_state.prompts_selecionados)
+
+        # Cria um campo de texto editável
+        if 'prompt_editavel' not in st.session_state:
+            st.session_state.prompt_editavel = prompt_automatico
+
+        # Atualiza o campo com o prompt automático sempre que ele mudar
+        if prompt_automatico != st.session_state.prompt_editavel:
+            st.session_state.prompt_editavel = prompt_automatico
+
+        # Campo editável
+        st.session_state.prompt_editavel = st.text_area(
+            "Prompt Final Montado",
+            value=st.session_state.prompt_editavel,
+            height=200
+        )
+
+        if st.button("Copiar Prompt", key="copiar_prompt"):
+            st.session_state.prompt_copiado = st.session_state.prompt_editavel
+            st.toast("Prompt copiado para área de transferência!", icon="✅")
+
+        if st.button("Limpar Seleção", key="limpar_selecao"):
+            st.session_state.prompts_selecionados = []
+            st.session_state.prompt_editavel = ""
+
+        st.markdown("---")
+        st.header("➕ Adicionar Novo Prompt")
+        with st.form("new_prompt"):
+            new_category = st.text_input("Nova Categoria")
+            new_prompt = st.text_area("Novo Prompt")
+
+            if st.form_submit_button("Adicionar ao Banco"):
+                if new_category and new_prompt:
+                    novo_prompt_df = pd.DataFrame([{
+                        'category': new_category,
+                        'prompt': new_prompt
+                    }])
+
+                    novo_prompt_df.to_csv(
+                        CSV_FILE,
+                        mode='a',
+                        header=False,
+                        sep=';',
+                        index=False
+                    )
+                    st.success("Item adicionado!")
+                else:
+                    st.warning("Preencha ambos os campos!")
+
+    # Construir interface de seleção em 3 colunas
     categorias = df['category'].unique()
+    colunas = st.columns(3)  # 3 colunas
 
     for idx, category in enumerate(categorias):
-        with colunas[idx % 3]:
-            with st.expander(f"**{category}**", expanded=False):
+        with colunas[idx % 3]:  # Distribui as categorias entre as colunas
+            with st.expander(f"{category}"):
                 prompts = df[df['category'] == category]['prompt']
-                
+
                 for i, prompt in enumerate(prompts):
                     prompt_id = f"{category}_{i}"
-                    btn_col, text_col = st.columns([0.2, 0.8])
-                    
-                    with text_col:
-                        st.markdown(f"`{prompt}`")
-                    
-                    with btn_col:
-                        if st.button("➕", key=f"btn_{prompt_id}", help="Adicionar ao prompt"):
-                            if prompt not in st.session_state.prompts_selecionados:
-                                st.session_state.prompts_selecionados.append(prompt)
 
-                    # Seleção via URL
+                    # Cria link clicável para selecionar o prompt
+                    params = urlencode({"select": prompt_id})
+                    link = f"?{params}"
+                    st.markdown(f"[`{prompt}`]({link})")
+
+                    # Verifica se foi selecionado via URL
                     if selected_prompt == prompt_id:
                         if prompt not in st.session_state.prompts_selecionados:
                             st.session_state.prompts_selecionados.append(prompt)
-                            st.experimental_set_query_params()
+                            # Limpa a URL para não ficar selecionando de novo
+                            st.query_params.clear()
 
 if __name__ == "__main__":
     main()
