@@ -1,0 +1,8 @@
+pathlib
+json
+sqlalchemy
+psycopg2
+pandas
+numpy
+scikit-learn
+tensorflow
