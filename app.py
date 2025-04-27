@@ -242,18 +242,17 @@ def main():
         categorias = df['category'].unique()
         
         cols = st.columns(3)
-        for idx, categoria in enumerate(categorias):
-            with cols[idx % 3]:
-                with st.expander(f"📂 {categoria.upper()}", expanded=True):
-                    for prompt in df[df['category'] == categoria]['prompt']:
-                        btn = st.button(
-                            prompt,
-                            key=f"btn_{categoria}_{prompt[:10]}",
-                            use_container_width=True
-                        )
-                        if btn and prompt not in st.session_state.prompts:
-                            st.session_state.prompts.append(prompt)
-                            st.rerun()
+        for idx, prompt in enumerate(df[df['category'] == categoria]['prompt']):
+            btn_key = f"btn_{categoria}_{idx}_{prompt[:20]}"  # Chave única com índice
+        if st.button(
+            prompt,
+            key=btn_key,  # Chave única para cada botão
+            help=f"Adicionar: {prompt[:50]}...",
+            use_container_width=True
+            ):
+        if prompt not in st.session_state.prompts_selecionados:
+            st.session_state.prompts_selecionados.append(prompt)
+            st.rerun()
 
         # Histórico de versões
         st.divider()
