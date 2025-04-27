@@ -60,7 +60,7 @@ def main():
 
     # Construir interface de seleção
     for category in df['category'].unique():
-        with st.expander(f"**{categoria}**"):
+        with st.expander(f"**{category}**"):
             prompts = df[df['category'] == category]['prompt']
             
             for prompt in prompts:
