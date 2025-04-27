@@ -1,4 +1,4 @@
-import streamlit as st 
+import streamlit as st
 import pandas as pd
 import requests
 import traceback
@@ -10,13 +10,14 @@ from hashlib import md5
 # Configurações iniciais
 load_dotenv()
 CSV_FILE = "prompts_database_complete.csv"
-DEEPSEEK_API_KEY = os.getenv("DEEPSEEK_API_KEY")
-DEEPSEEK_API_URL = "https://api.deepseek.com/v1/chat/completions"
+GROQ_API_KEY = os.getenv("GROQ_API_KEY")  # <<<< ALTERADO
+GROQ_API_URL = "https://api.groq.com/openai/v1/chat/completions"  # <<<< ALTERADO
 
 # Modos de operação
 DEBUG = True  # Altere para False em produção
 
 # ========== FUNÇÕES PRINCIPAIS ==========
+
 @st.cache_data
 def load_data():
     """Carrega e armazena em cache os dados do CSV"""
@@ -42,9 +43,9 @@ def log_error(error_msg):
         st.sidebar.error(f"DEBUG: {error_msg}")
 
 def melhorar_prompt(prompt_base, ferramenta):
-    """Otimiza o prompt usando DeepSeek API com tratamento específico"""
+    """Otimiza o prompt usando Groq API"""
     headers = {
-        "Authorization": f"Bearer {DEEPSEEK_API_KEY}",
+        "Authorization": f"Bearer {GROQ_API_KEY}",
         "Content-Type": "application/json"
     }
     
@@ -74,21 +75,16 @@ def melhorar_prompt(prompt_base, ferramenta):
     try:
         # Otimização do prompt principal
         response = requests.post(
-            DEEPSEEK_API_URL,
+            GROQ_API_URL,
             headers=headers,
             json={
-                "model": "deepseek-chat",
+                "model": "llama3-70b-8192",  # <<< Modelo recomendado da Groq
                 "messages": [
-                    {
-                        "role": "system", 
-                        "content": f"{templates[ferramenta]['system']} Otimize para: {ferramenta}"
-                    },
-                    {
-                        "role": "user",
-                        "content": f"OPTIMIZE PARA {ferramenta.upper()}:\n\n{prompt_base}"
-                    }
+                    {"role": "system", "content": f"{templates[ferramenta]['system']} Otimize para: {ferramenta}"},
+                    {"role": "user", "content": f"OPTIMIZE PARA {ferramenta.upper()}:\n\n{prompt_base}"}
                 ],
-                "temperature": 0.7
+                "temperature": 0.7,
+                "max_tokens": 4096
             },
             timeout=30
         )
@@ -98,21 +94,16 @@ def melhorar_prompt(prompt_base, ferramenta):
 
         # Geração do prompt negativo
         negative_response = requests.post(
-            DEEPSEEK_API_URL,
+            GROQ_API_URL,
             headers=headers,
             json={
-                "model": "deepseek-chat",
+                "model": "llama3-70b-8192",
                 "messages": [
-                    {
-                        "role": "system",
-                        "content": f"{templates[ferramenta]['negative']} para {ferramenta}"
-                    },
-                    {
-                        "role": "user",
-                        "content": improved_prompt
-                    }
+                    {"role": "system", "content": f"{templates[ferramenta]['negative']} para {ferramenta}"},
+                    {"role": "user", "content": improved_prompt}
                 ],
-                "temperature": 0.5
+                "temperature": 0.5,
+                "max_tokens": 2048
             },
             timeout=30
         )
