@@ -244,7 +244,7 @@ def main():
         cols = st.columns(3)
         for idx, prompt in enumerate(df[df['category'] == categoria]['prompt']):
             btn_key = f"btn_{categoria}_{idx}_{prompt[:20]}"  # Chave única com índice
-        if st.button(
+            if st.button(
             prompt,
             key=btn_key,  # Chave única para cada botão
             help=f"Adicionar: {prompt[:50]}...",
