@@ -69,6 +69,8 @@ def main():
                     st.markdown(f"`{prompt}`")
                 with col2:
                     if st.button("Selecionar", key=f"btn_{category}_{i}"):
+                        if prompt not in st.session_state.prompts_selecionados:
+                            st.session_state.prompts_selecionados.append(prompt)
 
     # Mostrar prompts selecionados
     st.markdown("---")
