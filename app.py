@@ -250,9 +250,9 @@ def main():
             help=f"Adicionar: {prompt[:50]}...",
             use_container_width=True
             ):
-        if prompt not in st.session_state.prompts_selecionados:
-            st.session_state.prompts_selecionados.append(prompt)
-            st.rerun()
+                if prompt not in st.session_state.prompts_selecionados:
+                    st.session_state.prompts_selecionados.append(prompt)
+                    st.rerun()
 
         # Histórico de versões
         st.divider()
