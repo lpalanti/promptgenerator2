@@ -15,6 +15,14 @@ GROQ_API_URL = "https://api.groq.com/openai/v1/chat/completions"
 
 print("🔑 API Key:", GROQ_API_KEY)
 
+curl https://api.groq.com/openai/v1/chat/completions \
+  -H "Authorization: Bearer SUA_CHAVE_AQUI" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "model": "mixtral-8x7b-32768",
+    "messages": [{"role":"user","content":"Diga Olá"}]
+  }'
+
 # Modos de operação
 DEBUG = True  # Altere para False em produção
 
