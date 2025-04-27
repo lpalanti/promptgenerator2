@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 
 # Configuração inicial
-CSV_FILE = "prompts_database.csv"
+CSV_FILE = "prompts_database_complete.csv"
 COLUNAS = ['category', 'prompt']
 
 # Carregar dados do CSV
