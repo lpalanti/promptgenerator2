@@ -34,20 +34,36 @@ def main():
     if 'prompts_selecionados' not in st.session_state:
         st.session_state.prompts_selecionados = []
 
-    # Sidebar para adicionar novos
+    # Sidebar para adicionar novos e visualizar prompt final
     with st.sidebar:
+        st.header("📝 Prompt Final Montado")
+        if st.session_state.prompts_selecionados:
+            prompt_final = "\n".join(st.session_state.prompts_selecionados)
+            st.code(prompt_final)
+
+            if st.button("Copiar Prompt", key="copiar_prompt"):
+                st.session_state.prompt_copiado = prompt_final
+                st.toast("Prompt copiado para área de transferência!", icon="✅")
+        else:
+            st.info("Selecione prompts para montar seu prompt final")
+
+        if st.button("Limpar Seleção", key="limpar_selecao"):
+            st.session_state.prompts_selecionados = []
+
+        st.markdown("---")
+        st.header("➕ Adicionar Novo Prompt")
         with st.form("new_prompt"):
-            new_category = st.text_input("New Category")
-            new_prompt = st.text_area("New Prompt")
+            new_category = st.text_input("Nova Categoria")
+            new_prompt = st.text_area("Novo Prompt")
             
             if st.form_submit_button("Adicionar ao Banco"):
-                if new_category and novo_prompt:
-                    new_prompt = pd.DataFrame([{
+                if new_category and new_prompt:
+                    novo_prompt_df = pd.DataFrame([{
                         'category': new_category,
                         'prompt': new_prompt
                     }])
                     
-                    new_prompt.to_csv(
+                    novo_prompt_df.to_csv(
                         CSV_FILE,
                         mode='a',
                         header=False,
@@ -71,24 +87,6 @@ def main():
                     if st.button("Selecionar", key=f"btn_{category}_{i}"):
                         if prompt not in st.session_state.prompts_selecionados:
                             st.session_state.prompts_selecionados.append(prompt)
-
-    # Mostrar prompts selecionados
-    st.markdown("---")
-    st.subheader("📝 Prompt Final Montado")
-    
-    if st.session_state.prompts_selecionados:
-        prompt_final = "\n".join(st.session_state.prompts_selecionados)
-        st.code(prompt_final)
-        
-        if st.button("Copiar Prompt"):
-            st.session_state.prompt_copiado = prompt_final
-            st.toast("Prompt copiado para área de transferência!", icon="✅")
-    else:
-        st.info("Selecione prompts acima para montar seu prompt final")
-
-    # Botão de limpar
-    if st.button("Limpar Seleção"):
-        st.session_state.prompts_selecionados = []
 
 if __name__ == "__main__":
     main()
