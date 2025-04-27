@@ -1,8 +1,1 @@
-pathlib
-json
-sqlalchemy
-psycopg2
-pandas
-numpy
-scikit-learn
-tensorflow
+streamlit>=1.22.0
