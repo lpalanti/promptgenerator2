@@ -1,4 +1,4 @@
-Category,Subcategory,Item
+Category,Subcategory,Item,translation
 Renderização & Processamento,Sampling & Noise Reduction,AI denoising,Optix, Intel Open Image
 Renderização & Processamento,Sampling & Noise Reduction,Temporal denoising,video frame blending
 Renderização & Processamento,Sampling & Noise Reduction,Path tracing sample increase,
