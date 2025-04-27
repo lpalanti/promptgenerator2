@@ -68,7 +68,7 @@ def main():
                 with col1:
                     st.markdown(f"`{prompt}`")
                 with col2:
-                    if  st.button("Selecionar", key=f"btn_{category}_{i}"):
+                    if st.button("Selecionar", key=f"btn_{category}_{i}"):
 
     # Mostrar prompts selecionados
     st.markdown("---")
