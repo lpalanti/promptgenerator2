@@ -1,52 +1,19 @@
 import streamlit as st
-import json
-from pathlib import Path
+import pandas as pd
 
 # Configuração inicial
-DB_FILE = "prompt_database.json"
-DEFAULT_DATA = {
-    "categories": {
-        "Tone": {
-            "subcategories": {
-                "Formal": ["Academic", "Professional"],
-                "Informal": ["Casual", "Friendly"]
-            }
-        },
-        "Structure": {
-            "subcategories": {
-                "Types": ["Essay", "Report", "List"]
-            }
-        }
-    },
-    "translations": {
-        "Academic": "Acadêmico",
-        "Professional": "Profissional",
-        "Casual": "Casual",
-        "Friendly": "Amigável",
-        "Essay": "Ensaio",
-        "Report": "Relatório",
-        "List": "Lista"
-    }
-}
+CSV_FILE = "prompts_database_complete.csv"
 
-# Carregar ou criar o banco de dados
-def load_database():
-    if not Path(DB_FILE).exists():
-        with open(DB_FILE, 'w') as f:
-            json.dump(DEFAULT_DATA, f)
-    with open(DB_FILE) as f:
-        return json.load(f)
-
-def save_database(data):
-    with open(DB_FILE, 'w') as f:
-        json.dump(data, f, indent=2)
+# Carregar dados do CSV
+def load_data():
+    return pd.read_csv(CSV_FILE)
 
 # Interface principal
 def main():
     st.title("🔮 Gerador de Prompts Inteligente")
     
     # Carregar dados
-    db = load_database()
+    df = load_data()
     
     # Sessão para armazenar o prompt
     if 'selected_items' not in st.session_state:
@@ -63,29 +30,29 @@ def main():
             
             if st.form_submit_button("Salvar"):
                 if category and subcategory and english and portuguese:
-                    # Atualizar estrutura de dados
-                    if category not in db['categories']:
-                        db['categories'][category] = {"subcategories": {}}
-                    if subcategory not in db['categories'][category]['subcategories']:
-                        db['categories'][category]['subcategories'][subcategory] = []
-                    if english not in db['categories'][category]['subcategories'][subcategory]:
-                        db['categories'][category]['subcategories'][subcategory].append(english)
-                    db['translations'][english] = portuguese
-                    save_database(db)
+                    new_row = pd.DataFrame([{
+                        'Category': category,
+                        'Subcategory': subcategory,
+                        'Item': english,
+                        'Translation': portuguese
+                    }])
+                    new_row.to_csv(CSV_FILE, mode='a', header=False, index=False)
                     st.success("Item adicionado com sucesso!")
                 else:
                     st.error("Preencha todos os campos!")
 
     # Construir interface de seleção
-    for category, cat_data in db['categories'].items():
+    for category in df['Category'].unique():
         with st.expander(f"**{category}**"):
-            for subcategory, items in cat_data['subcategories'].items():
+            cat_df = df[df['Category'] == category]
+            for subcategory in cat_df['Subcategory'].unique():
                 st.markdown(f"##### {subcategory}")
+                sub_df = cat_df[cat_df['Subcategory'] == subcategory]
                 cols = st.columns(3)
                 
-                for idx, item in enumerate(items):
+                for idx, row in sub_df.iterrows():
                     col = cols[idx % 3]
-                    translation = db['translations'].get(item, "Sem tradução")
+                    translation = row['Translation']
                     
                     # HTML/CSS para tooltip
                     col.markdown(f"""
@@ -94,7 +61,7 @@ def main():
                             onmouseover="this.nextElementSibling.style.display='block'"
                             onmouseout="this.nextElementSibling.style.display='none'"
                             onclick="this.classList.toggle('selected')">
-                            {item}
+                            {row['Item']}
                         </button>
                         <div style="display:none;position:absolute;background:#f0f2f6;padding:5px;border-radius:4px;z-index:1000;">
                             {translation}
@@ -102,9 +69,9 @@ def main():
                     </div>
                     """, unsafe_allow_html=True)
                     
-                    if col.button(f"Selecionar {item}"):
-                        if item not in st.session_state.selected_items:
-                            st.session_state.selected_items.append(item)
+                    if col.button(f"Selecionar {row['Item']}"):
+                        if row['Item'] not in st.session_state.selected_items:
+                            st.session_state.selected_items.append(row['Item'])
     
     # Mostrar prompt construído
     st.markdown("---")
