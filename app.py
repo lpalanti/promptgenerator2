@@ -53,26 +53,26 @@ def main():
     with st.sidebar:
         st.header("📝 Prompt Final Montado")
         # Gera o prompt final automaticamente
-prompt_automatico = "\n".join(st.session_state.prompts_selecionados)
+        prompt_automatico = "\n".join(st.session_state.prompts_selecionados)
 
-# Cria um campo de texto editável
-if 'prompt_editavel' not in st.session_state:
-    st.session_state.prompt_editavel = prompt_automatico
+    # Cria um campo de texto editável
+    if 'prompt_editavel' not in st.session_state:
+        st.session_state.prompt_editavel = prompt_automatico
 
-# Atualiza o campo com o prompt automático sempre que ele mudar
-if prompt_automatico != st.session_state.prompt_editavel:
-    st.session_state.prompt_editavel = prompt_automatico
+    # Atualiza o campo com o prompt automático sempre que ele mudar
+        if prompt_automatico != st.session_state.prompt_editavel:
+        st.session_state.prompt_editavel = prompt_automatico
 
-# Campo editável
-st.session_state.prompt_editavel = st.text_area(
-    "Prompt Final Montado",
-    value=st.session_state.prompt_editavel,
-    height=200
-)
+    # Campo editável
+        st.session_state.prompt_editavel = st.text_area(
+        "Prompt Final Montado",
+        value=st.session_state.prompt_editavel,
+        height=200
+        )
 
-if st.button("Copiar Prompt", key="copiar_prompt"):
-    st.session_state.prompt_copiado = st.session_state.prompt_editavel
-    st.toast("Prompt copiado para área de transferência!", icon="✅")
+    if st.button("Copiar Prompt", key="copiar_prompt"):
+        st.session_state.prompt_copiado = st.session_state.prompt_editavel
+        st.toast("Prompt copiado para área de transferência!", icon="✅")
 
         if st.button("Limpar Seleção", key="limpar_selecao"):
             st.session_state.prompts_selecionados = []
