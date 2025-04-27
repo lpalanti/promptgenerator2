@@ -1,5 +1,6 @@
 import streamlit as st
 import pandas as pd
+from urllib.parse import urlencode
 
 # Configuração inicial
 CSV_FILE = "prompts_database_complete.csv"
@@ -43,6 +44,10 @@ def main():
     # Sessão para armazenar seleções
     if 'prompts_selecionados' not in st.session_state:
         st.session_state.prompts_selecionados = []
+
+    # Captura seleção via URL
+    query_params = st.experimental_get_query_params()
+    selected_prompt = query_params.get("select", [None])[0]
 
     # Sidebar para adicionar novos e visualizar prompt final
     with st.sidebar:
@@ -94,13 +99,19 @@ def main():
                 prompts = df[df['category'] == category]['prompt']
 
                 for i, prompt in enumerate(prompts):
-                    col1, col2 = st.columns([0.8, 0.2])
-                    with col1:
-                        st.markdown(f"`{prompt}`")
-                    with col2:
-                        if st.button("Selecionar", key=f"btn_{category}_{i}"):
-                            if prompt not in st.session_state.prompts_selecionados:
-                                st.session_state.prompts_selecionados.append(prompt)
+                    prompt_id = f"{category}_{i}"
+
+                    # Cria link clicável para selecionar o prompt
+                    params = urlencode({"select": prompt_id})
+                    link = f"?{params}"
+                    st.markdown(f"[`{prompt}`]({link})")
+
+                    # Verifica se foi selecionado via URL
+                    if selected_prompt == prompt_id:
+                        if prompt not in st.session_state.prompts_selecionados:
+                            st.session_state.prompts_selecionados.append(prompt)
+                            # Limpa a URL para não ficar selecionando de novo
+                            st.experimental_set_query_params()
 
 if __name__ == "__main__":
     main()
