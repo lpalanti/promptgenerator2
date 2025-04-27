@@ -1,20 +1,800 @@
-Category,Subcategory,Item,translation, test
-Renderização & Processamento,Sampling & Noise Reduction,AI denoising,Optix, Intel Open Image
-Renderização & Processamento,Sampling & Noise Reduction,Temporal denoising,video frame blending
-Renderização & Processamento,Sampling & Noise Reduction,Path tracing sample increase,
-Renderização & Processamento,Sampling & Noise Reduction,Adaptive sampling,more detail where needed
-Renderização & Processamento,Sampling & Noise Reduction,Noise threshold control,
-Renderização & Processamento,Sampling & Noise Reduction,Firefly removal,random pixel noise
-Renderização & Processamento,Sampling & Noise Reduction,Multi-sample anti-aliasing,MSAA
-Renderização & Processamento,Sampling & Noise Reduction,Temporal super-sampling,TAA
-Renderização & Processamento,Sampling & Noise Reduction,Noise patterns for creative effect,
-Renderização & Processamento,Sampling & Noise Reduction,Layered noise reduction passes,
-Renderização & Processamento,Sampling & Noise Reduction,Selective denoise,preserve details
-Renderização & Processamento,Sampling & Noise Reduction,Dithering to reduce banding,
-Renderização & Processamento,Sampling & Noise Reduction,Sample clamping,limit extremes
-Renderização & Processamento,Sampling & Noise Reduction,AI texture restoration,remove noise from specific textures
-Renderização & Processamento,Sampling & Noise Reduction,Z-depth noise filtering,
-Renderização & Processamento,Resolution & Upscaling,AI Gigapixel upscaling,image
-Renderização & Processamento,Resolution & Upscaling,AI frame upscaling,video
-Renderização & Processamento,Resolution & Upscaling,Tile-based rendering for ultra-high res,
-Renderização & Processamento,Resolution & Upscaling,Subpixel enhancement,
+Category;Prompt
+Color Grading & LUTs;Teal & Orange blockbuster
+Color Grading & LUTs;Sepia vintage wash
+Color Grading & LUTs;Bleach bypass high contrast
+Color Grading & LUTs;Cyberpunk neon glow (magenta/cyan)
+Color Grading & LUTs;Analog film Kodak emulation
+Color Grading & LUTs;Warm sunset amber tones
+Color Grading & LUTs;Cold blue winter cast
+Color Grading & LUTs;Noir monochrome deep blacks
+Color Grading & LUTs;Split toning (cool shadows, warm highlights)
+Color Grading & LUTs;Cross-processed greens/magentas
+Color Grading & LUTs;Muted earth tones (desaturated palette)
+Color Grading & LUTs;Technicolor oversaturation
+Color Grading & LUTs;Vintage faded Polaroid look
+Color Grading & LUTs;HDR vivid highlights
+Color Grading & LUTs;Desaturated dystopian green cast
+Correção de Cor (Color Correction);Skin tone isolation (natural balance)
+Correção de Cor (Color Correction);Shadow lifting without noise
+Correção de Cor (Color Correction);Highlight recovery (avoid clipping)
+Correção de Cor (Color Correction);White balance cool daylight
+Correção de Cor (Color Correction);White balance warm tungsten
+Correção de Cor (Color Correction);Midtone contrast push
+Correção de Cor (Color Correction);Saturation vibrancy boost
+Correção de Cor (Color Correction);Hue shifting specific tones (ex: greens to teal)
+Correção de Cor (Color Correction);Clipping zone alerts (highlight warnings)
+Correção de Cor (Color Correction);Match shot-to-shot consistency
+Correção de Cor (Color Correction);Reduce color banding in gradients
+Correção de Cor (Color Correction);Enhance foliage greens
+Correção de Cor (Color Correction);Neutralize color casts
+Correção de Cor (Color Correction);Preserve black levels
+Correção de Cor (Color Correction);Balance color wheel adjustments
+Texture & Material (Textura & Material);Rusted iron
+Texture & Material (Textura & Material);Velvet drapery
+Texture & Material (Textura & Material);Glossy liquid
+Texture & Material (Textura & Material);Cracked ceramic
+Texture & Material (Textura & Material);Holographic film
+Texture & Material (Textura & Material);Mossy stone
+Texture & Material (Textura & Material);Burnt wood grain
+Texture & Material (Textura & Material);Polished obsidian
+Texture & Material (Textura & Material);Fuzzy wool
+Texture & Material (Textura & Material);Cracked leather
+Texture & Material (Textura & Material);Glass refraction
+Texture & Material (Textura & Material);Lava flow
+Texture & Material (Textura & Material);Feather down
+Texture & Material (Textura & Material);Circuit board
+Texture & Material (Textura & Material);Sandpaper grit
+Lighting Effects (Efeitos de Iluminação);Lighting Effects (Efeitos de Iluminação)
+Lighting Effects (Efeitos de Iluminação);God rays through clouds
+Lighting Effects (Efeitos de Iluminação);Neon sign reflections
+Lighting Effects (Efeitos de Iluminação);Candle flicker
+Lighting Effects (Efeitos de Iluminação);Underwater caustics
+Lighting Effects (Efeitos de Iluminação);Interrogation spotlight
+Lighting Effects (Efeitos de Iluminação);Bioluminescent fungi
+Lighting Effects (Efeitos de Iluminação);Fireworks spark trails
+Lighting Effects (Efeitos de Iluminação);Plasma orb glow
+Lighting Effects (Efeitos de Iluminação);Blacklight UV
+Lighting Effects (Efeitos de Iluminação);Starlight long exposure
+Lighting Effects (Efeitos de Iluminação);Lightning strike flash
+Lighting Effects (Efeitos de Iluminação);Hologram projection
+Lighting Effects (Efeitos de Iluminação);Lava flow illumination
+Lighting Effects (Efeitos de Iluminação);Police siren flashes
+Lighting Effects (Efeitos de Iluminação);Portal energy beams
+Angle (Ângulo);Overhead drone view
+Angle (Ângulo);Low-angle hero shot
+Angle (Ângulo);Dutch tilt (25-degree rotation)
+Angle (Ângulo);Eye-level symmetrical framing
+Angle (Ângulo);Worm’s-eye view with sky backdrop
+Angle (Ângulo);Diagonal dynamic composition
+Angle (Ângulo);Extreme close-up (macro)
+Angle (Ângulo);Wide-angle landscape panorama
+Angle (Ângulo);Fisheye lens distortion effect
+Angle (Ângulo);Over-the-shoulder perspective
+Angle (Ângulo);Aerial view with parallax layers
+Angle (Ângulo);360-degree spherical projection
+Angle (Ângulo);Profile view (side angle)
+Angle (Ângulo);Top-down isometric perspective
+Angle (Ângulo);Reflection shot via mirror/water]
+Composition (Composição);Rule of thirds grid alignment
+Composition (Composição);Centered symmetry (mirror effect)
+Composition (Composição);Leading lines converging at horizon
+Composition (Composição);Negative space minimalism
+Composition (Composição);Frame-within-a-frame (doorways)
+Composition (Composição);Golden ratio spiral overlay
+Composition (Composição);Chaotic overlapping shapes
+Composition (Composição);Layered depth (foreground blur)
+Composition (Composição);Diagonal tension lines
+Composition (Composição);Radial symmetry (sunburst pattern)
+Composition (Composição);Grid-based collage layout
+Composition (Composição);Broken symmetry for imbalance
+Composition (Composição);Full-bleed edge-to-edge elements
+Composition (Composição);Z-pattern visual flow
+Composition (Composição);Triangular focal points
+Camera Settings (Configurações de Câmera);Shallow DOF (f/1.2)
+Camera Settings (Configurações de Câmera);Long exposure trails
+Camera Settings (Configurações de Câmera);High ISO noise
+Camera Settings (Configurações de Câmera);Tilt-shift miniature
+Camera Settings (Configurações de Câmera);Infrared spectrum
+Camera Settings (Configurações de Câmera);100mm telephoto
+Camera Settings (Configurações de Câmera);Wide 14mm distortion
+Camera Settings (Configurações de Câmera);High-speed flash sync
+Camera Settings (Configurações de Câmera);Double exposure blend
+Camera Settings (Configurações de Câmera);Solarized negative
+Camera Settings (Configurações de Câmera);Cross-process film
+Camera Settings (Configurações de Câmera);Fisheye curvature
+Camera Settings (Configurações de Câmera);Macro focus stacking
+Camera Settings (Configurações de Câmera);Anamorphic flares
+Camera Settings (Configurações de Câmera);UV-reactive capture
+Camera Simulation (Simulação de Câmera);Anamorphic lens flares (oval highlights)
+Camera Simulation (Simulação de Câmera);Rolling shutter artifacts (jello effect)
+Camera Simulation (Simulação de Câmera);Film grain emulation (Kodak, Fuji, Ilford)
+Camera Simulation (Simulação de Câmera);Shutter angle adjustments (motion blur control)
+Camera Simulation (Simulação de Câmera);Sensor bloom simulation (overexposure glow)
+Camera Simulation (Simulação de Câmera);Vintage lens softness (low contrast)
+Camera Simulation (Simulação de Câmera);Vignetting from old optics
+Camera Simulation (Simulação de Câmera);Chromatic aberration fringing
+Camera Simulation (Simulação de Câmera);Barrel and pincushion distortion
+Camera Simulation (Simulação de Câmera);Lens breathing (zoom focus shift)
+Camera Simulation (Simulação de Câmera);Dust and scratch overlays (film imperfections)
+Camera Simulation (Simulação de Câmera);Infrared photography simulation
+Camera Simulation (Simulação de Câmera);CCTV grain and low-light noise
+Camera Simulation (Simulação de Câmera);Double exposure ghosting
+Camera Simulation (Simulação de Câmera);Light leaks (analog camera simulation)
+Focus & Blur Effects (Foco & Efeitos de Desfoque);Gaussian blur (soft background)
+Focus & Blur Effects (Foco & Efeitos de Desfoque);Motion blur streaks
+Focus & Blur Effects (Foco & Efeitos de Desfoque);Tilt-shift blur for miniaturization
+Focus & Blur Effects (Foco & Efeitos de Desfoque);Radial blur (vortex center focus)
+Focus & Blur Effects (Foco & Efeitos de Desfoque);Bokeh circle highlights
+Focus & Blur Effects (Foco & Efeitos de Desfoque);Anamorphic lens flares + oval bokeh
+Focus & Blur Effects (Foco & Efeitos de Desfoque);Defocus blur transitions
+Focus & Blur Effects (Foco & Efeitos de Desfoque);Rack focus (shift foreground to background)
+Focus & Blur Effects (Foco & Efeitos de Desfoque);Depth map-based blur separation
+Focus & Blur Effects (Foco & Efeitos de Desfoque);Camera shake blur
+Focus & Blur Effects (Foco & Efeitos de Desfoque);Ghosting echo blur (temporal smear)
+Focus & Blur Effects (Foco & Efeitos de Desfoque);Soft glow bloom blur
+Focus & Blur Effects (Foco & Efeitos de Desfoque);Field curvature blur
+Focus & Blur Effects (Foco & Efeitos de Desfoque);Zoom blur effect
+Focus & Blur Effects (Foco & Efeitos de Desfoque);Misty haze blur overlay
+Depth & Z-Depth Maps (Mapas de Profundidade);Fog depth layering
+Depth & Z-Depth Maps (Mapas de Profundidade);Parallax separation (foreground, midground, background)
+Depth & Z-Depth Maps (Mapas de Profundidade);Bokeh blur separation
+Depth & Z-Depth Maps (Mapas de Profundidade);Depth masks for compositing
+Depth & Z-Depth Maps (Mapas de Profundidade);Z-depth matte painting extensions
+Depth & Z-Depth Maps (Mapas de Profundidade);Depth-based lighting effects (God rays)
+Depth & Z-Depth Maps (Mapas de Profundidade);Parallax occlusion mapping (texture displacement)
+Depth & Z-Depth Maps (Mapas de Profundidade);Layered volumetric fog
+Depth & Z-Depth Maps (Mapas de Profundidade);Background compression effects
+Depth & Z-Depth Maps (Mapas de Profundidade);Atmospheric perspective simulation
+Depth & Z-Depth Maps (Mapas de Profundidade);Depth focus stacking (macro)
+Depth & Z-Depth Maps (Mapas de Profundidade);Tilt-shift depth blur
+Depth & Z-Depth Maps (Mapas de Profundidade);Depth-triggered particle systems
+Depth & Z-Depth Maps (Mapas de Profundidade);Simulated lens diffraction blur
+Depth & Z-Depth Maps (Mapas de Profundidade);Depth-based motion blur
+Atmosphere & Weather (Atmosfera & Clima);Thick fog obscurity
+Atmosphere & Weather (Atmosfera & Clima);Blizzard snowdrifts
+Atmosphere & Weather (Atmosfera & Clima);Desert heat mirage
+Atmosphere & Weather (Atmosfera & Clima);Sparkling fairy dust
+Atmosphere & Weather (Atmosfera & Clima);Acid rain corrosion
+Atmosphere & Weather (Atmosfera & Clima);Radioactive green mist
+Atmosphere & Weather (Atmosfera & Clima);Pollen-filled spring
+Atmosphere & Weather (Atmosfera & Clima);Ashfall apocalypse
+Atmosphere & Weather (Atmosfera & Clima);Aurora borealis waves
+Atmosphere & Weather (Atmosfera & Clima);Sandstorm abrasion
+Atmosphere & Weather (Atmosfera & Clima);Tropical humidity haze
+Atmosphere & Weather (Atmosfera & Clima);Freezing breath clouds
+Atmosphere & Weather (Atmosfera & Clima);Cherry blossom petals
+Atmosphere & Weather (Atmosfera & Clima);Toxic yellow smog
+Atmosphere & Weather (Atmosfera & Clima);Dandelion seed drift
+Body Types (Tipos de Corpo);Muscular bodybuilder
+Body Types (Tipos de Corpo);Lithe gymnast
+Body Types (Tipos de Corpo);Plus-size curves
+Body Types (Tipos de Corpo);Androgynous slender
+Body Types (Tipos de Corpo);Elderly frail frame
+Body Types (Tipos de Corpo);Childlike proportions
+Body Types (Tipos de Corpo);Athletic swimmer’s build
+Body Types (Tipos de Corpo);Powerlifter bulk
+Body Types (Tipos de Corpo);Petite doll-like figure
+Body Types (Tipos de Corpo);Tall lanky silhouette
+Body Types (Tipos de Corpo);Stocky dwarf stature
+Body Types (Tipos de Corpo);Obese comedic shape
+Body Types (Tipos de Corpo);Anorexic haunting form
+Body Types (Tipos de Corpo);Pregnant belly profile
+Body Types (Tipos de Corpo);Cyborg hybrid anatomy
+Skin (Pele);Porcelain with freckles
+Skin (Pele);Olive Mediterranean tone
+Skin (Pele);Deep ebony melanin
+Skin (Pele);Golden suntan glow
+Skin (Pele);Albino pale with veins
+Skin (Pele);Metallic chrome plating
+Skin (Pele);Cracked desert texture
+Skin (Pele);Translucent jellyfish
+Skin (Pele);Glowing circuit tattoos
+Skin (Pele);Scarred battle damage
+Skin (Pele);Reptilian scales
+Skin (Pele);Holographic projection
+Skin (Pele);Celestial constellation map
+Skin (Pele);Burned charcoal cracks
+Skin (Pele);Prismatic oil-slick
+Hair (Cabelo);Straight black silk
+Hair (Cabelo);Wavy caramel highlights
+Hair (Cabelo);Tight coils/afro
+Hair (Cabelo);Curly ginger ringlets
+Hair (Cabelo);Bald with tribal tattoos
+Hair (Cabelo);Neon pink buzzcut
+Hair (Cabelo);Waist-length silver
+Hair (Cabelo);Viking braided beard
+Hair (Cabelo);Half-shaved undercut
+Hair (Cabelo);1950s victory rolls
+Hair (Cabelo);Holographic fiber optics
+Hair (Cabelo);Medusa snake strands
+Hair (Cabelo);Dreadlocks with beads
+Hair (Cabelo);Anime spiky colors
+Hair (Cabelo);Wet seaweed strands
+Eyes (Olhos);Deep brown almond
+Eyes (Olhos);Ocean blue irises
+Eyes (Olhos);Emerald green cat-eye
+Eyes (Olhos);Hazel heterochromia
+Eyes (Olhos);Glowing red cybernetic
+Eyes (Olhos);Galaxy swirl pupils
+Eyes (Olhos);Snake-like vertical slits
+Eyes (Olhos);X-ray skeletal vision
+Eyes (Olhos);Gold flecked amber
+Eyes (Olhos);Milky blind opacity
+Eyes (Olhos);Neon LED replacements
+Eyes (Olhos);Multifaceted insect eyes
+Eyes (Olhos);Anime sparkle highlights
+Eyes (Olhos);Black sclera demonic
+Eyes (Olhos);Crystal prism refraction
+Facial Expressions (Expressões Faciais);Neutral resting face
+Facial Expressions (Expressões Faciais);Joyful toothy grin
+Facial Expressions (Expressões Faciais);Angry furrowed brow
+Facial Expressions (Expressões Faciais);Tearful sorrow
+Facial Expressions (Expressões Faciais);Surprised wide eyes
+Facial Expressions (Expressões Faciais);Disgusted sneer
+Facial Expressions (Expressões Faciais);Sultry smolder
+Facial Expressions (Expressões Faciais);Maniacal laughter
+Facial Expressions (Expressões Faciais);Skeptical side-eye
+Facial Expressions (Expressões Faciais);Childlike wonder
+Facial Expressions (Expressões Faciais);Exhausted eye bags
+Facial Expressions (Expressões Faciais);Stoic determination
+Facial Expressions (Expressões Faciais);Flirty wink
+Facial Expressions (Expressões Faciais);Fearful trembling
+Facial Expressions (Expressões Faciais);Zen-like serenity
+Ethnicities (Etnias);Scandinavian Nordic
+Ethnicities (Etnias);West African Yoruba
+Ethnicities (Etnias);East Asian Han
+Ethnicities (Etnias);Native American Navajo
+Ethnicities (Etnias);South Indian Tamil
+Ethnicities (Etnias);Arabic Bedouin
+Ethnicities (Etnias);Polynesian Maori
+Ethnicities (Etnias);Indigenous Amazonian
+Ethnicities (Etnias);Mediterranean Greek
+Ethnicities (Etnias);Inuit Arctic
+Ethnicities (Etnias);Afro-Caribbean
+Ethnicities (Etnias);Persian Zoroastrian
+Ethnicities (Etnias);Hispanic Mestizo
+Ethnicities (Etnias);Siberian Evenki
+Ethnicities (Etnias);Jewish Ashkenazi
+Clothing (Roupas);Victorian corset & lace
+Clothing (Roupas);Cyberpunk neon armor
+Clothing (Roupas);Nomadic desert robes
+Clothing (Roupas);Corporate power suit
+Clothing (Roupas);Post-apocalyptic rags
+Clothing (Roupas);Samurai silk kimono
+Clothing (Roupas);1950s pinup dress
+Clothing (Roupas);Futuristic latex bodysuit
+Clothing (Roupas);Medieval chainmail
+Clothing (Roupas);Steampunk goggles/gears
+Clothing (Roupas);Hip-hop streetwear
+Clothing (Roupas);Astronaut EVA suit
+Clothing (Roupas);Gothic lace & leather
+Clothing (Roupas);Preppy yacht attire
+Clothing (Roupas);Tribal ceremonial paint
+Posture (Postura);Confident power stance
+Posture (Postura);Slouched depression
+Posture (Postura);Meditative lotus seat
+Posture (Postura);Mid-air parkour flip
+Posture (Postura);Aristocratic hand-on-chin
+Posture (Postura);Threatening combat crouch
+Posture (Postura);Casual lean against wall
+Posture (Postura);Ballet arabesque pose
+Posture (Postura);Tired seated slump
+Posture (Postura);Prayer kneel
+Posture (Postura);Heroic cape billow
+Posture (Postura);Spy crouching stealth
+Posture (Postura);Thinker statue pose
+Posture (Postura);Yoga downward dog
+Posture (Postura);Dancer mid-pirouette
+Personality (Personalidade);Charismatic leader
+Personality (Personalidade);Shy introvert
+Personality (Personalidade);Sarcastic joker
+Personality (Personalidade);Ruthless villain
+Personality (Personalidade);Naive optimist
+Personality (Personalidade);Cynical realist
+Personality (Personalidade);Eccentric genius
+Personality (Personalidade);Broken survivor
+Personality (Personalidade);Narcissistic diva
+Personality (Personalidade);Stoic warrior
+Personality (Personalidade);Motherly warmth
+Personality (Personalidade);Paranoid conspiracy theorist
+Personality (Personalidade);Playful trickster
+Personality (Personalidade);Melancholic poet
+Personality (Personalidade);Childish curiosity
+Fantasy Features (Características Fantásticas);Dragon wings (leathery)
+Fantasy Features (Características Fantásticas);Elf ears with piercings
+Fantasy Features (Características Fantásticas);Mermaid scales
+Fantasy Features (Características Fantásticas);Angel feathered wings
+Fantasy Features (Características Fantásticas);Demon ram horns
+Fantasy Features (Características Fantásticas);Fairy glitter dust
+Fantasy Features (Características Fantásticas);Centaur equine legs
+Fantasy Features (Características Fantásticas);Gorgon snake hair
+Fantasy Features (Características Fantásticas);Cyclops single eye
+Fantasy Features (Características Fantásticas);Werewolf fur/fangs
+Fantasy Features (Características Fantásticas);Phoenix fire aura
+Fantasy Features (Características Fantásticas);Ent bark skin
+Fantasy Features (Características Fantásticas);Vampire pale glamour
+Fantasy Features (Características Fantásticas);Naga serpent tail
+Fantasy Features (Características Fantásticas);Djinn smoke limbs
+Body Modifications (Modificações Corporais);LED subcutaneous implants
+Body Modifications (Modificações Corporais);Tribal scarification
+Body Modifications (Modificações Corporais);Robotic prosthetic arm
+Body Modifications (Modificações Corporais);Bioluminescent tattoos
+Body Modifications (Modificações Corporais);Nose/eyebrow piercings
+Body Modifications (Modificações Corporais);Magnetic fingertip implants
+Body Modifications (Modificações Corporais);QR code face tattoo
+Body Modifications (Modificações Corporais);Subdermal horn implants
+Body Modifications (Modificações Corporais);Glowing vein patterns
+Body Modifications (Modificações Corporais);Metallic teeth grills
+Body Modifications (Modificações Corporais);Ear stretching gauges
+Body Modifications (Modificações Corporais);Embedded crystal growths
+Body Modifications (Modificações Corporais);Cybernetic spine plating
+Body Modifications (Modificações Corporais);Magnetic levitation jewelry
+Body Modifications (Modificações Corporais);Nanotech skin patterns
+Camera Movement (Movimento de Câmera);Dolly zoom vertigo effect
+Camera Movement (Movimento de Câmera);Handheld documentary shake
+Camera Movement (Movimento de Câmera);Crane lift over crowd
+Camera Movement (Movimento de Câmera);Steadicam hallway follow
+Camera Movement (Movimento de Câmera);Parallax 2.5D scroll
+Camera Movement (Movimento de Câmera);Drone mountain flythrough
+Camera Movement (Movimento de Câmera);Slow 360 subject orbit
+Camera Movement (Movimento de Câmera);Whip pan transition
+Camera Movement (Movimento de Câmera);Tracking shot with moving car
+Camera Movement (Movimento de Câmera);Zoom into fractal patterns
+Camera Movement (Movimento de Câmera);Helicopter aerial chase
+Camera Movement (Movimento de Câmera);SnorriCam POV movement
+Camera Movement (Movimento de Câmera);Time-lapse star trail rotation
+Camera Movement (Movimento de Câmera);Underwater glide tracking
+Camera Movement (Movimento de Câmera);Crash zoom to dramatic close-up
+Pacing (Ritmo de Edição);Slow-mo rain droplet impact
+Pacing (Ritmo de Edição);Hyperlapse urban day/night
+Pacing (Ritmo de Edição);Chaotic TikTok-style cuts
+Pacing (Ritmo de Edição);Single-take long shot
+Pacing (Ritmo de Edição);Memory montage fragments
+Pacing (Ritmo de Edição);Glitch stutter transitions
+Pacing (Ritmo de Edição);Reverse chronology unraveling
+Pacing (Ritmo de Edição);Real-time tension buildup
+Pacing (Ritmo de Edição);Stop-motion animation
+Pacing (Ritmo de Edição);Speed ramping (slow to fast)
+Pacing (Ritmo de Edição);Flashback intercuts
+Pacing (Ritmo de Edição);Hypnotic looped sequences
+Pacing (Ritmo de Edição);Split-screen parallel action
+Pacing (Ritmo de Edição);Rapid-fire micro-scenes
+Pacing (Ritmo de Edição);Gradual slow fade to stillness
+Frame Rate (Taxa de Quadros);24fps cinematic motion blur
+Frame Rate (Taxa de Quadros);60fps buttery slow-mo
+Frame Rate (Taxa de Quadros);12fps retro choppiness
+Frame Rate (Taxa de Quadros);120fps ultra-slow detail
+Frame Rate (Taxa de Quadros);Variable experimental rates
+Frame Rate (Taxa de Quadros);30fps smooth vlog style
+Frame Rate (Taxa de Quadros);48fps HFR fantasy
+Frame Rate (Taxa de Quadros);18fps vintage film look
+Frame Rate (Taxa de Quadros);240fps explosion analysis
+Frame Rate (Taxa de Quadros);8fps stop-motion jitter
+Frame Rate (Taxa de Quadros);96fps sports highlights
+Frame Rate (Taxa de Quadros);15fps nightmare stutter
+Frame Rate (Taxa de Quadros);50fps PAL broadcast
+Frame Rate (Taxa de Quadros);29.97fps NTSC standard
+Frame Rate (Taxa de Quadros);1000fps scientific macro
+Sound Design (Design de Som);ASMR texture close-ups
+Sound Design (Design de Som);Diegetic city soundscape
+Sound Design (Design de Som);Sub-bass tension rumbles
+Sound Design (Design de Som);Retro synthwave arpeggios
+Sound Design (Design de Som);Silence + sharp stingers
+Sound Design (Design de Som);Nature ambience layers
+Sound Design (Design de Som);Mechanical gear clinks
+Sound Design (Design de Som);Alien language murmurs
+Sound Design (Design de Som);Water droplet reverb
+Sound Design (Design de Som);Heartbeat pulse overlay
+Sound Design (Design de Som);Digital glitch artifacts
+Sound Design (Design de Som);Crowd murmur walla
+Sound Design (Design de Som);Weapon whooshes/swishes
+Sound Design (Design de Som);Ethereal choir pads
+Sound Design (Design de Som);Foley-enhanced realism
+Mixagem & Masterização (Áudio);Dynamic range compression
+Mixagem & Masterização (Áudio);Equalization (vocal presence boost)
+Mixagem & Masterização (Áudio);Stereo widening
+Mixagem & Masterização (Áudio);Mid/side processing (control stereo image)
+Mixagem & Masterização (Áudio);Limiting (prevent clipping)
+Mixagem & Masterização (Áudio);Reverb space simulation (room, hall, plate)
+Mixagem & Masterização (Áudio);Delay/echo effects
+Mixagem & Masterização (Áudio);De-esser (reduce harsh “s” sounds)
+Mixagem & Masterização (Áudio);Multi-band compression
+Mixagem & Masterização (Áudio);Sidechain compression (ducking effects)
+Mixagem & Masterização (Áudio);Harmonic excitation (add warmth)
+Mixagem & Masterização (Áudio);Low-end enhancement (sub bass boost)
+Mixagem & Masterização (Áudio);High-pass filtering (remove rumble)
+Mixagem & Masterização (Áudio);Spatial audio mixing (3D sound positioning)
+Mixagem & Masterização (Áudio);Noise gating (cut silence)
+Efeitos Sonoros Específicos (Áudio);Foley footsteps (different surfaces)
+Efeitos Sonoros Específicos (Áudio);Wind rustling (leaves, structures)
+Efeitos Sonoros Específicos (Áudio);Rain ambiance (various intensities)
+Efeitos Sonoros Específicos (Áudio);Thunder rumbles
+Efeitos Sonoros Específicos (Áudio);Mechanical gear clinks
+Efeitos Sonoros Específicos (Áudio);Synth risers (build-up sounds)
+Efeitos Sonoros Específicos (Áudio);Bass drops
+Efeitos Sonoros Específicos (Áudio);Horror stingers (sharp tonal hits)
+Efeitos Sonoros Específicos (Áudio);Crowd murmurs (background layers)
+Efeitos Sonoros Específicos (Áudio);Door creaks
+Efeitos Sonoros Específicos (Áudio);Electric sparks
+Efeitos Sonoros Específicos (Áudio);Explosion booms
+Efeitos Sonoros Específicos (Áudio);Underwater muffled sounds
+Efeitos Sonoros Específicos (Áudio);Alien language whispers
+Efeitos Sonoros Específicos (Áudio);Clock ticking loops
+Time-Based Manipulation (Manipulação de Tempo);Frame interpolation (AI slow motion)
+Time-Based Manipulation (Manipulação de Tempo);Ghosting effects (multiple frame overlays)
+Time-Based Manipulation (Manipulação de Tempo);Time-warp stabilization
+Time-Based Manipulation (Manipulação de Tempo);Time remapping (speed up/down specific sections)
+Time-Based Manipulation (Manipulação de Tempo);Reverse playback
+Time-Based Manipulation (Manipulação de Tempo);Loopable seamless clips
+Time-Based Manipulation (Manipulação de Tempo);Glitch time distortions (frame skipping)
+Time-Based Manipulation (Manipulação de Tempo);Pulse effects (time-based scaling)
+Time-Based Manipulation (Manipulação de Tempo);Temporal echoes (trailing frames)
+Time-Based Manipulation (Manipulação de Tempo);Stop-motion effect simulation
+Time-Based Manipulation (Manipulação de Tempo);Slit-scan time displacement
+Time-Based Manipulation (Manipulação de Tempo);Clock wipe transitions (rotating timepiece)
+Time-Based Manipulation (Manipulação de Tempo);Beat-synced time ramping
+Time-Based Manipulation (Manipulação de Tempo);Layered time offset (different elements at different speeds)
+Time-Based Manipulation (Manipulação de Tempo);Echo fade (gradual ghosting over time)
+VFX & CGI Integration (Integração VFX/CGI);Motion-tracked HUD overlays
+VFX & CGI Integration (Integração VFX/CGI);Fire particle systems
+VFX & CGI Integration (Integração VFX/CGI);Smoke simulations
+VFX & CGI Integration (Integração VFX/CGI);Rain and weather effects
+VFX & CGI Integration (Integração VFX/CGI);Holographic projections
+VFX & CGI Integration (Integração VFX/CGI);Explosions with debris trails
+VFX & CGI Integration (Integração VFX/CGI);Energy shield distortions
+VFX & CGI Integration (Integração VFX/CGI);Light saber glow composites
+VFX & CGI Integration (Integração VFX/CGI);Magic spell particle bursts
+VFX & CGI Integration (Integração VFX/CGI);Environmental fog layers
+VFX & CGI Integration (Integração VFX/CGI);Shockwave ripples
+VFX & CGI Integration (Integração VFX/CGI);Glass shatter simulations
+VFX & CGI Integration (Integração VFX/CGI);Portal opening effects
+VFX & CGI Integration (Integração VFX/CGI);Water ripple displacement maps
+VFX & CGI Integration (Integração VFX/CGI);Starfield space backgrounds
+Renderização & Processamento;Sampling & Noise Reduction (Amostragem & Redução de Ruído)
+Renderização & Processamento;AI denoising (Optix, Intel Open Image)
+Renderização & Processamento;Temporal denoising (video frame blending)
+Renderização & Processamento;Path tracing sample increase
+Renderização & Processamento;Adaptive sampling (more detail where needed)
+Renderização & Processamento;Noise threshold control
+Renderização & Processamento;Firefly removal (random pixel noise)
+Renderização & Processamento;Multi-sample anti-aliasing (MSAA)
+Renderização & Processamento;Temporal super-sampling (TAA)
+Renderização & Processamento;Noise patterns for creative effect
+Renderização & Processamento;Layered noise reduction passes
+Renderização & Processamento;Selective denoise (preserve details)
+Renderização & Processamento;Dithering to reduce banding
+Renderização & Processamento;Sample clamping (limit extremes)
+Renderização & Processamento;AI texture restoration (remove noise from specific textures)
+Renderização & Processamento;Z-depth noise filtering
+Resolution & Upscaling (Resolução & Upscaling);AI Gigapixel upscaling (image)
+Resolution & Upscaling (Resolução & Upscaling);AI frame upscaling (video)
+Resolution & Upscaling (Resolução & Upscaling);Tile-based rendering for ultra-high res
+Resolution & Upscaling (Resolução & Upscaling);Subpixel enhancement
+Resolution & Upscaling (Resolução & Upscaling);Detail recovery sharpening
+Resolution & Upscaling (Resolução & Upscaling);Edge preservation sharpening
+Resolution & Upscaling (Resolução & Upscaling);Texture upscaling with AI models
+Resolution & Upscaling (Resolução & Upscaling);Vector upscaling (line art)
+Resolution & Upscaling (Resolução & Upscaling);Aspect ratio adaptation (cropping without loss)
+Resolution & Upscaling (Resolução & Upscaling);4K to 8K AI interpolation
+Resolution & Upscaling (Resolução & Upscaling);Low-res artifact cleanup
+Resolution & Upscaling (Resolução & Upscaling);Region-specific upscaling (focal area)
+Resolution & Upscaling (Resolução & Upscaling);Content-aware scaling
+Resolution & Upscaling (Resolução & Upscaling);Frame blending for smooth transitions
+Resolution & Upscaling (Resolução & Upscaling);Hybrid bicubic + AI upscaling
+Compression Artifacts (Artefatos de Compressão);Simulate JPEG compression artifacts
+Compression Artifacts (Artefatos de Compressão);VHS degradation (noise, color bleed)
+Compression Artifacts (Artefatos de Compressão);DV tape noise patterns
+Compression Artifacts (Artefatos de Compressão);Glitch artifacts (RGB splits, pixel jumps)
+Compression Artifacts (Artefatos de Compressão);Macroblocking (low bitrate video)
+Compression Artifacts (Artefatos de Compressão);Pixelation (intentional blockiness)
+Compression Artifacts (Artefatos de Compressão);Color banding introduction
+Compression Artifacts (Artefatos de Compressão);CRT screen scanlines
+Compression Artifacts (Artefatos de Compressão);Interlacing (video lines)
+Compression Artifacts (Artefatos de Compressão);Audio compression artifacts (clipping)
+Compression Artifacts (Artefatos de Compressão);Radio static overlays
+Compression Artifacts (Artefatos de Compressão);MP3 distortion effects
+Compression Artifacts (Artefatos de Compressão);Data moshing (frame interpolation glitches)
+Compression Artifacts (Artefatos de Compressão);Bitrate fluctuation simulation
+Compression Artifacts (Artefatos de Compressão);Packet loss simulation (network glitch look)
+Masking & Compositing (Máscaras & Composição);Green screen keying
+Masking & Compositing (Máscaras & Composição);Soft edge feathering
+Masking & Compositing (Máscaras & Composição);Rotoscoping outlines
+Masking & Compositing (Máscaras & Composição);Garbage matte cleanup
+Masking & Compositing (Máscaras & Composição);Luma key based on brightness
+Masking & Compositing (Máscaras & Composição);Chroma key spill suppression
+Masking & Compositing (Máscaras & Composição);Motion-tracked masks
+Masking & Compositing (Máscaras & Composição);Depth matte compositing
+Masking & Compositing (Máscaras & Composição);Mask expansion/shrinkage
+Masking & Compositing (Máscaras & Composição);Edge blur anti-aliasing
+Masking & Compositing (Máscaras & Composição);Refine hair edge matte
+Masking & Compositing (Máscaras & Composição);Manual polygon masks
+Masking & Compositing (Máscaras & Composição);Difference matte blending
+Masking & Compositing (Máscaras & Composição);Noise pattern blending masks
+Masking & Compositing (Máscaras & Composição);Mask-based color correction zones
+Retouching & Beauty Work (Retoques & Beleza);Frequency separation for skin
+Retouching & Beauty Work (Retoques & Beleza);Dodge & burn contouring
+Retouching & Beauty Work (Retoques & Beleza);Eye whitening/enhancement
+Retouching & Beauty Work (Retoques & Beleza);Teeth brightening
+Retouching & Beauty Work (Retoques & Beleza);Skin texture preservation
+Retouching & Beauty Work (Retoques & Beleza);Blemish removal
+Retouching & Beauty Work (Retoques & Beleza);Pore smoothing without plastic look
+Retouching & Beauty Work (Retoques & Beleza);Hair flyaway removal
+Retouching & Beauty Work (Retoques & Beleza);Lip color enhancement
+Retouching & Beauty Work (Retoques & Beleza);Jawline sharpening
+Retouching & Beauty Work (Retoques & Beleza);Under-eye circle reduction
+Retouching & Beauty Work (Retoques & Beleza);Color balance in shadows/highlights
+Retouching & Beauty Work (Retoques & Beleza);Makeup enhancement
+Retouching & Beauty Work (Retoques & Beleza);Eyebrow reshaping
+Retouching & Beauty Work (Retoques & Beleza);Wrinkle softening
+Conceitos, Narrativa & Criatividade;Narrativa Visual (Storytelling)
+Conceitos, Narrativa & Criatividade;Três atos visuais (introdução, conflito, resolução)
+Conceitos, Narrativa & Criatividade;Metáfora visual de ascensão e queda
+Conceitos, Narrativa & Criatividade;Jornada do herói (clássico)
+Conceitos, Narrativa & Criatividade;Flashbacks com tonalidade distinta
+Conceitos, Narrativa & Criatividade;Montagem paralela (dois mundos conectados)
+Conceitos, Narrativa & Criatividade;Uso de objetos simbólicos (relógio quebrado, porta fechada)
+Conceitos, Narrativa & Criatividade;Tempo cíclico (começo igual ao fim)
+Conceitos, Narrativa & Criatividade;Conflito interno personificado (dois lados do personagem)
+Conceitos, Narrativa & Criatividade;Crescimento de personagem via luz/cor
+Conceitos, Narrativa & Criatividade;Narrativa ambiental (contar a história pelo cenário)
+Conceitos, Narrativa & Criatividade;Mudança de paleta de cores ao longo da trama
+Conceitos, Narrativa & Criatividade;Uso de sombras para representar medo ou dúvida
+Conceitos, Narrativa & Criatividade;Câmera subjetiva (ver pelos olhos do personagem)
+Conceitos, Narrativa & Criatividade;Close em detalhes (ex: mãos tremendo, lágrima)
+Conceitos, Narrativa & Criatividade;Final ambíguo (múltiplas interpretações)
+Anxiety Metaphors (Metáforas de Ansiedade):;Hourglass with accelerating sand
+Anxiety Metaphors (Metáforas de Ansiedade):;Maze walls closing in
+Anxiety Metaphors (Metáforas de Ansiedade):;Floating in endless data streams
+Anxiety Metaphors (Metáforas de Ansiedade):;Shadow figures whispering charts
+Anxiety Metaphors (Metáforas de Ansiedade):;Glass skin cracking under pressure
+Anxiety Metaphors (Metáforas de Ansiedade):;Clock gears replacing organs
+Anxiety Metaphors (Metáforas de Ansiedade):;Endless falling through spreadsheets
+Anxiety Metaphors (Metáforas de Ansiedade):;Magnified eyeball tracking dots
+Anxiety Metaphors (Metáforas de Ansiedade):;Swarm of notification icons
+Anxiety Metaphors (Metáforas de Ansiedade):;Mirror shards showing failures
+Anxiety Metaphors (Metáforas de Ansiedade):;Quicksand swallowing documents
+Anxiety Metaphors (Metáforas de Ansiedade):;Binary rain eroding identity
+Anxiety Metaphors (Metáforas de Ansiedade):;Lungs filled with static
+Anxiety Metaphors (Metáforas de Ansiedade):;GPS stuck recalculating
+Anxiety Metaphors (Metáforas de Ansiedade):;Scream muted in soundproof glass
+Euphoria Metaphors (Metáforas de Euforia):;Floating in liquid light
+Euphoria Metaphors (Metáforas de Euforia):;Wings growing from laughter
+Euphoria Metaphors (Metáforas de Euforia):;Fireworks under the skin
+Euphoria Metaphors (Metáforas de Euforia):;Balloon heart lifting upward
+Euphoria Metaphors (Metáforas de Euforia):;Paint explosions in slow motion
+Euphoria Metaphors (Metáforas de Euforia):;Crystalized dopamine structures
+Euphoria Metaphors (Metáforas de Euforia):;Aurora borealis in veins
+Euphoria Metaphors (Metáforas de Euforia):;Champagne bubbles in zero-G
+Euphoria Metaphors (Metáforas de Euforia):;Sunlight personified as embrace
+Euphoria Metaphors (Metáforas de Euforia):;Flowers blooming from fingertips
+Euphoria Metaphors (Metáforas de Euforia):;Confetti bloodstream
+Euphoria Metaphors (Metáforas de Euforia):;Gravity-defying hair
+Euphoria Metaphors (Metáforas de Euforia):;Prism tears refracting joy
+Euphoria Metaphors (Metáforas de Euforia):;Symphony visualized as color
+Euphoria Metaphors (Metáforas de Euforia):;Time dilation in golden honey
+Cyberpunk Medieval:;Knight with LED-plated armor
+Cyberpunk Medieval:;Castle towers with neon banners
+Cyberpunk Medieval:;Dragon with jet engine wings
+Cyberpunk Medieval:;AI oracle in stone chapel
+Cyberpunk Medieval:;Cybernetic blacksmith forge
+Cyberpunk Medieval:;Holographic heraldic shields
+Cyberpunk Medieval:;Data scrolls instead of parchment
+Cyberpunk Medieval:;Drone-mounted siege weapons
+Cyberpunk Medieval:;Neon-lit jousting tournaments
+Cyberpunk Medieval:;Monks transcribing codex into servers
+Cyberpunk Medieval:;Cyborg horses with hydraulic legs
+Cyberpunk Medieval:;Blockchain-powered royal seals
+Cyberpunk Medieval:;Augmented reality tavern signs
+Cyberpunk Medieval:;Laser crossbow weaponry
+Cyberpunk Medieval:;Cryptocurrency market town criers
+Horror Cósmico Infantil:;Teddy bear with tentacle stuffing
+Horror Cósmico Infantil:;Rainbow vomit revealing galaxies
+Horror Cósmico Infantil:;Jump rope rhymes summoning entities
+Horror Cósmico Infantil:;Crayon drawings of Shoggoths
+Horror Cósmico Infantil:;Nursery mobile with Elder Things
+Horror Cósmico Infantil:;Pacifier dripping black ooze
+Horror Cósmico Infantil:;Animated plush Cthulhu
+Horror Cósmico Infantil:;Glittery Necronomicon pop-up book
+Horror Cósmico Infantil:;Swing set over R’lyeh abyss
+Horror Cósmico Infantil:;Bubblegum-pink sanity meters
+Horror Cósmico Infantil:;Chalk portal to the Dreamlands
+Horror Cósmico Infantil:;Unicorn with fractal horn
+Horror Cósmico Infantil:;Lullaby sung in Enochian
+Horror Cósmico Infantil:;Piñata bursting with eyes
+Horror Cósmico Infantil:;Nightlight projecting elder signs
+Time Representation (Representações do Tempo):;Melting pocket watches
+Time Representation (Representações do Tempo):;Hourglass with black holes
+Time Representation (Representações do Tempo):;DNA helix timeline spirals
+Time Representation (Representações do Tempo):;Sundial casting digital shadows
+Time Representation (Representações do Tempo):;Calendar pages burning edges
+Time Representation (Representações do Tempo):;Tree rings containing events
+Time Representation (Representações do Tempo):;Clockwork galaxy rotation
+Time Representation (Representações do Tempo):;Film reel timeline edits
+Time Representation (Representações do Tempo):;Quantum superposition clocks
+Time Representation (Representações do Tempo):;Aging portrait timelapse
+Time Representation (Representações do Tempo):;Parallel reality branches
+Time Representation (Representações do Tempo):;Fossilized future tech
+Time Representation (Representações do Tempo):;Seasons colliding in frame
+Time Representation (Representações do Tempo):;Pendulum swinging through eras
+Time Representation (Representações do Tempo):;Sand timer draining into void
+Ethical & Social Themes (Temas Éticos & Sociais);Climate Collapse (Colapso Climático):
+Ethical & Social Themes (Temas Éticos & Sociais);Polar bear on microplastic berg
+Ethical & Social Themes (Temas Éticos & Sociais);Skyscraper-sized thermometer
+Ethical & Social Themes (Temas Éticos & Sociais);Forest fire consuming money
+Ethical & Social Themes (Temas Éticos & Sociais);Coral reef graveyard memorial
+Ethical & Social Themes (Temas Éticos & Sociais);Oil-coated human lungs
+Ethical & Social Themes (Temas Éticos & Sociais);Hourglass filled with ice melt
+Ethical & Social Themes (Temas Éticos & Sociais);Extinction countdown billboard
+Ethical & Social Themes (Temas Éticos & Sociais);Drought-cracked stock market
+Ethical & Social Themes (Temas Éticos & Sociais);Flooded city stock exchange
+Ethical & Social Themes (Temas Éticos & Sociais);Greenhouse gas storm clouds
+Ethical & Social Themes (Temas Éticos & Sociais);Species barcode fading
+Ethical & Social Themes (Temas Éticos & Sociais);Carbon credit diamond
+Ethical & Social Themes (Temas Éticos & Sociais);Earth IV drip with poison
+Ethical & Social Themes (Temas Éticos & Sociais);Solar panel desert mirage
+Ethical & Social Themes (Temas Éticos & Sociais);Wind turbine bird cemetery
+Indigenous Tribal Patterns (Padrões Tribais Indígenas):;Maori facial moko tattoos
+Indigenous Tribal Patterns (Padrões Tribais Indígenas):;Navajo diamond-weave blankets
+Indigenous Tribal Patterns (Padrões Tribais Indígenas):;Aztec calendar stone motifs
+Indigenous Tribal Patterns (Padrões Tribais Indígenas):;Sami reindeer leather embroidery
+Indigenous Tribal Patterns (Padrões Tribais Indígenas):;Aboriginal dot painting animals
+Indigenous Tribal Patterns (Padrões Tribais Indígenas):;Haida totem pole carvings
+Indigenous Tribal Patterns (Padrões Tribais Indígenas):;Inuit bone necklace designs
+Indigenous Tribal Patterns (Padrões Tribais Indígenas):;Yoruba Adinkra symbols
+Indigenous Tribal Patterns (Padrões Tribais Indígenas):;Celtic knotwork borders
+Indigenous Tribal Patterns (Padrões Tribais Indígenas):;Mayan stepped pyramid glyphs
+Indigenous Tribal Patterns (Padrões Tribais Indígenas):;Native American dreamcatchers
+Indigenous Tribal Patterns (Padrões Tribais Indígenas):;Berber geometric henna
+Indigenous Tribal Patterns (Padrões Tribais Indígenas):;Polynesian wave tattoos
+Indigenous Tribal Patterns (Padrões Tribais Indígenas):;Tibetan mandala sand art
+Indigenous Tribal Patterns (Padrões Tribais Indígenas):;Ainu wooden bear carvings
+Soviet Retrofuturism (Retrofuturismo Soviético):;Sputnik satellite chandeliers
+Soviet Retrofuturism (Retrofuturismo Soviético):;Brutalist concrete communal housing
+Soviet Retrofuturism (Retrofuturismo Soviético):;Propaganda poster color blocks
+Soviet Retrofuturism (Retrofuturismo Soviético):;Cyrillic neon signage
+Soviet Retrofuturism (Retrofuturismo Soviético):;Retro space dog (Laika) monuments
+Soviet Retrofuturism (Retrofuturismo Soviético):;Chernobyl reactor core glow
+Soviet Retrofuturism (Retrofuturismo Soviético):;Cold War spy tech blueprints
+Soviet Retrofuturism (Retrofuturismo Soviético):;Kosmonaut suits with hammer-and-sickle
+Soviet Retrofuturism (Retrofuturismo Soviético):;Eastern Bloc metro station mosaics
+Soviet Retrofuturism (Retrofuturismo Soviético):;Retro-futuristic Lada cars
+Soviet Retrofuturism (Retrofuturismo Soviético):;Stalinist skyscraper spires
+Soviet Retrofuturism (Retrofuturismo Soviético):;Red star holograms
+Soviet Retrofuturism (Retrofuturismo Soviético):;Vintage oscilloscope interfaces
+Soviet Retrofuturism (Retrofuturismo Soviético):;Tunguska event sci-fi reimagining
+Soviet Retrofuturism (Retrofuturismo Soviético):;Retro atomic punk reactors
+Interface & HUDs (Interfaces & Heads-Up Displays);HUD militar tático
+Interface & HUDs (Interfaces & Heads-Up Displays);Interface de navegação sci-fi
+Interface & HUDs (Interfaces & Heads-Up Displays);HUD médico (batimentos, scans)
+Interface & HUDs (Interfaces & Heads-Up Displays);Scanner de reconhecimento facial
+Interface & HUDs (Interfaces & Heads-Up Displays);Interface de combate (target lock)
+Interface & HUDs (Interfaces & Heads-Up Displays);Painéis holográficos translúcidos
+Interface & HUDs (Interfaces & Heads-Up Displays);Mapas topográficos em tempo real
+Interface & HUDs (Interfaces & Heads-Up Displays);Scanner de DNA ou estruturas biológicas
+Interface & HUDs (Interfaces & Heads-Up Displays);Interface hacker (linhas de código fluindo)
+Interface & HUDs (Interfaces & Heads-Up Displays);Interface AR policial (reconhecimento de placas)
+Interface & HUDs (Interfaces & Heads-Up Displays);HUD submarino (sonar pings)
+Interface & HUDs (Interfaces & Heads-Up Displays);Interface retro-futurista (anos 80)
+Interface & HUDs (Interfaces & Heads-Up Displays);Elementos de jogo RPG (barras de vida/mana)
+Interface & HUDs (Interfaces & Heads-Up Displays);Interface industrial com gráficos analógicos
+Interface & HUDs (Interfaces & Heads-Up Displays);Radar circular (avião, navio, etc.)
+Metaverso & Realidade Virtual (VR/AR);VR parallax layers
+Metaverso & Realidade Virtual (VR/AR);360-degree environments
+Metaverso & Realidade Virtual (VR/AR);Avatares hiper-realistas
+Metaverso & Realidade Virtual (VR/AR);Avatares em estilo cartoon
+Metaverso & Realidade Virtual (VR/AR);Espelhos virtuais interativos
+Metaverso & Realidade Virtual (VR/AR);Cenários futuristas de metaverso
+Metaverso & Realidade Virtual (VR/AR);HUDs de realidade aumentada
+Metaverso & Realidade Virtual (VR/AR);Realidade mista (real + digital)
+Metaverso & Realidade Virtual (VR/AR);Mundos voxel (tipo Minecraft)
+Metaverso & Realidade Virtual (VR/AR);Modelos low-poly para VR
+Metaverso & Realidade Virtual (VR/AR);Artefatos glitch de imersão
+Metaverso & Realidade Virtual (VR/AR);Simulação de teletransporte
+Metaverso & Realidade Virtual (VR/AR);Cenários espaciais para VR
+Metaverso & Realidade Virtual (VR/AR);Experiência em primeira pessoa com sensores de movimento
+Metaverso & Realidade Virtual (VR/AR);Efeitos de distorção de presença (motion sickness simulation)
+First-Person View (POV) (Visão em Primeira Pessoa);VR headset HUD overlay
+First-Person View (POV) (Visão em Primeira Pessoa);Looking down at your robotic hands
+First-Person View (POV) (Visão em Primeira Pessoa);Weapon aiming reticle focus
+First-Person View (POV) (Visão em Primeira Pessoa);Car dashboard perspective
+First-Person View (POV) (Visão em Primeira Pessoa);Holding a mysterious ancient artifact
+First-Person View (POV) (Visão em Primeira Pessoa);Through a surgeon’s loupe
+First-Person View (POV) (Visão em Primeira Pessoa);Pilot cockpit windshield view
+First-Person View (POV) (Visão em Primeira Pessoa);Peering through binoculars
+First-Person View (POV) (Visão em Primeira Pessoa);Underwater diving mask
+First-Person View (POV) (Visão em Primeira Pessoa);Prison cell barred window
+First-Person View (POV) (Visão em Primeira Pessoa);Vampire fangs bared at prey
+First-Person View (POV) (Visão em Primeira Pessoa);Astronaut helmet visor reflection
+First-Person View (POV) (Visão em Primeira Pessoa);Chef’s knife chopping vegetables
+First-Person View (POV) (Visão em Primeira Pessoa);Archer drawing bowstring
+First-Person View (POV) (Visão em Primeira Pessoa);Child clutching a teddy bear
+Fourth-Wall Breaking (Quebra da Quarta Parede);Character handing a photo to the viewer
+Fourth-Wall Breaking (Quebra da Quarta Parede);Eyes locking with the audience
+Fourth-Wall Breaking (Quebra da Quarta Parede);Painting reaching out of the canvas
+Fourth-Wall Breaking (Quebra da Quarta Parede);UI elements reacting to viewer’s gaze
+Fourth-Wall Breaking (Quebra da Quarta Parede);Mirror reflecting the viewer’s face
+Fourth-Wall Breaking (Quebra da Quarta Parede);Screen crack spreading toward the viewer
+Fourth-Wall Breaking (Quebra da Quarta Parede);Comic speech bubble saying “YOU!”
+Fourth-Wall Breaking (Quebra da Quarta Parede);Shadow mimicking viewer’s movements
+Fourth-Wall Breaking (Quebra da Quarta Parede);Character adjusting the “camera”
+Fourth-Wall Breaking (Quebra da Quarta Parede);Glitch revealing the artist’s cursor
+Fourth-Wall Breaking (Quebra da Quarta Parede);Subtitles describing the viewer
+Fourth-Wall Breaking (Quebra da Quarta Parede);Browser window inside the scene
+Fourth-Wall Breaking (Quebra da Quarta Parede);Character reading a prompt list
+Fourth-Wall Breaking (Quebra da Quarta Parede);Animated wink at the audience
+Fourth-Wall Breaking (Quebra da Quarta Parede);Finger pointing directly outward
+Dynamic & Interactive Media (Mídias Dinâmicas & Interativas);Digital graffiti on brick walls
+Dynamic & Interactive Media (Mídias Dinâmicas & Interativas);Pokemon-style creature chase
+Dynamic & Interactive Media (Mídias Dinâmicas & Interativas);Navigation arrows on sidewalks
+Dynamic & Interactive Media (Mídias Dinâmicas & Interativas);Floating recipe instructions
+Dynamic & Interactive Media (Mídias Dinâmicas & Interativas);Historical figures reenacting
+Dynamic & Interactive Media (Mídias Dinâmicas & Interativas);Virtual try-on fashion mirrors
+Dynamic & Interactive Media (Mídias Dinâmicas & Interativas);Battle damage on real objects
+Dynamic & Interactive Media (Mídias Dinâmicas & Interativas);Alien plants growing in parks
+Dynamic & Interactive Media (Mídias Dinâmicas & Interativas);X-ray vision subway maps
+Dynamic & Interactive Media (Mídias Dinâmicas & Interativas);Rain that paints colors
+Dynamic & Interactive Media (Mídias Dinâmicas & Interativas);Horror monsters under beds
+Dynamic & Interactive Media (Mídias Dinâmicas & Interativas);Constellation sky drawings
+Dynamic & Interactive Media (Mídias Dinâmicas & Interativas);Fitness stats on jogging paths
+Dynamic & Interactive Media (Mídias Dinâmicas & Interativas);Language translation bubbles
+Dynamic & Interactive Media (Mídias Dinâmicas & Interativas);Meme stickers on politicians
+Cassette Futurism (Futurismo Cassete):;CRT monitor matrix rain
+Cassette Futurism (Futurismo Cassete):;Floppy disk skyscrapers
+Cassette Futurism (Futurismo Cassete):;Walkman jetpack controls
+Cassette Futurism (Futurismo Cassete):;VHS tape DNA strands
+Cassette Futurism (Futurismo Cassete):;Rotary phone neural interface
+Cassette Futurism (Futurismo Cassete):;Pixelated neon city grids
+Cassette Futurism (Futurismo Cassete):;Retro game UI HUDs
+Cassette Futurism (Futurismo Cassete):;Dot matrix printer forests
+Cassette Futurism (Futurismo Cassete):;Analog synth terrain
+Cassette Futurism (Futurismo Cassete):;Betamax sarcophagus
+Cassette Futurism (Futurismo Cassete):;Cassette tape mecha
+Cassette Futurism (Futurismo Cassete):;8-bit passport stamps
+Cassette Futurism (Futurismo Cassete):;Zip drive data vaults
+Cassette Futurism (Futurismo Cassete):;Tamagotchi pet ecosystems
+Cassette Futurism (Futurismo Cassete):;LaserDisc shield tech
+Multiverse Portals (Portais do Multiverso):;Mirror pool dimensional ripples
+Multiverse Portals (Portais do Multiverso):;Quantum fern patterns
+Multiverse Portals (Portais do Multiverso):;Broken reality stitching
+Multiverse Portals (Portais do Multiverso):;Gravity lattice distortions
+Multiverse Portals (Portais do Multiverso):;Vacuum decay encroachment
+Multiverse Portals (Portais do Multiverso):;Probability storm lightning
+Multiverse Portals (Portais do Multiverso):;Boltzmann brain orbs
+Multiverse Portals (Portais do Multiverso):;Cosmic string gateway
+Multiverse Portals (Portais do Multiverso):;False vacuum bubbles
+Multiverse Portals (Portais do Multiverso):;Holographic principle grid
+Multiverse Portals (Portais do Multiverso):;White hole fireworks
+Multiverse Portals (Portais do Multiverso):;Eternal inflation foam
+Multiverse Portals (Portais do Multiverso):;Brane collision cracks
+Multiverse Portals (Portais do Multiverso):;Hawking radiation swirls
+Multiverse Portals (Portais do Multiverso):;Dark matter spiderwebs
+Metamorphosis (Metamorfose):;Fingernails peeling as film
+Metamorphosis (Metamorfose):;Teeth growing USB ports
+Metamorphosis (Metamorfose):;Hair becoming root systems
+Metamorphosis (Metamorfose):;Skin bubbling with eyes
+Metamorphosis (Metamorfose):;Bones extruding crystals
+Metamorphosis (Metamorfose):;Tongue splitting into tentacles
+Metamorphosis (Metamorfose):;Veins mapping circuitry
+Metamorphosis (Metamorfose):;Nose dissolving into mist
+Metamorphosis (Metamorfose):;Ears blooming flowers
+Metamorphosis (Metamorfose):;Muscles unspooling thread
+Metamorphosis (Metamorfose):;Ribcage birdcage rust
+Metamorphosis (Metamorfose):;Lungs inflating balloons
+Metamorphosis (Metamorfose):;Heart clockwork dismantling
+Metamorphosis (Metamorfose):;Pupils becoming black holes
+Metamorphosis (Metamorfose):;Spine fossilizing into code
+Neural Network Visuals (Visuais de Redes Neurais):;Synapse activation light trails
+Neural Network Visuals (Visuais de Redes Neurais):;Floating neuron constellations
+Neural Network Visuals (Visuais de Redes Neurais):;Data dendrite fractal growth
+Neural Network Visuals (Visuais de Redes Neurais):;Error backpropagation rivers
+Neural Network Visuals (Visuais de Redes Neurais):;Weight matrix heatmaps
+Neural Network Visuals (Visuais de Redes Neurais):;Gradient descent valley terrain
+Neural Network Visuals (Visuais de Redes Neurais):;Overfitting as cracked mirrors
+Neural Network Visuals (Visuais de Redes Neurais):;Activation function landscapes
+Neural Network Visuals (Visuais de Redes Neurais):;Attention mechanism spotlights
+Neural Network Visuals (Visuais de Redes Neurais):;Loss function canyon depths
+Neural Network Visuals (Visuais de Redes Neurais):;Tensor cores as gemstones
+Neural Network Visuals (Visuais de Redes Neurais):;Epoch progression timelapse
+Neural Network Visuals (Visuais de Redes Neurais):;Embedding space galaxies
+Neural Network Visuals (Visuais de Redes Neurais):;Dropout as pixel erasure
+Neural Network Visuals (Visuais de Redes Neurais):;GAN duel: Creator vs Critic
