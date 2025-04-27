@@ -7,148 +7,235 @@ from dotenv import load_dotenv
 import os
 
 # Configurações iniciais
-load_dotenv()  # Carrega variáveis do .env
+load_dotenv()
 CSV_FILE = "prompts_database_complete.csv"
-DEEPSEEK_API_KEY = os.getenv("DEEPSEEK_API_KEY")  # Chave no .env
+DEEPSEEK_API_KEY = os.getenv("DEEPSEEK_API_KEY")
 DEEPSEEK_API_URL = "https://api.deepseek.com/v1/chat/completions"
 
-# Debug Mode
-DEBUG = True  # Altere para False em produção
+# Modos de operação
+DEBUG = True  # Ativar/desativar modo debug
 
-# ========== Funções Principais ==========
+# ========== FUNÇÕES PRINCIPAIS ==========
 def load_data():
-    """Carrega dados do CSV com tratamento de erros"""
+    """Carrega dados do CSV com tratamento robusto de erros"""
     try:
-        df = pd.read_csv(CSV_FILE, sep=';', encoding='utf-8', on_bad_lines='warn')
-        if DEBUG: st.sidebar.success("CSV carregado com sucesso!")
-        return df
+        df = pd.read_csv(
+            CSV_FILE,
+            sep=';',
+            encoding='utf-8',
+            on_bad_lines='skip'
+        )
+        if DEBUG:
+            st.sidebar.success("✅ CSV carregado com sucesso!")
+            st.sidebar.write(f"📊 Total de prompts: {len(df)}")
+        return df.dropna()
     except Exception as e:
-        st.error(f"Erro crítico ao carregar CSV: {str(e)}")
+        log_error(f"CRÍTICO: Erro ao carregar CSV - {str(e)}")
+        st.error("🚨 Falha crítica no carregamento do banco de dados!")
         st.stop()
 
 def log_error(error_msg):
-    """Registra erros em arquivo de log"""
+    """Registra erros em arquivo com timestamp"""
+    timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     with open("app_errors.log", "a") as f:
-        f.write(f"{datetime.now()} - {error_msg}\n")
+        f.write(f"[{timestamp}] {error_msg}\n")
     if DEBUG:
-        st.sidebar.error(f"DEBUG: {error_msg}")
+        st.sidebar.error(f"🐞 DEBUG: {error_msg}")
 
-# ========== Interface ==========
+def melhorar_prompt(prompt_base, ferramenta):
+    """Otimiza o prompt usando DeepSeek com tratamento específico por ferramenta"""
+    headers = {
+        "Authorization": f"Bearer {DEEPSEEK_API_KEY}",
+        "Content-Type": "application/json"
+    }
+    
+    instrucoes = {
+        "Midjourney": {
+            "system": "Você é um expert em Midjourney. Otimize o prompt incluindo parâmetros técnicos como --v 5 --style raw",
+            "negative": "Gere um prompt negativo técnico para Midjourney focando em evitar artefatos comuns"
+        },
+        "Fooocus": {
+            "system": "Especialista em Fooocus. Use tags XML <s> e parâmetros como --detailed --realistic",
+            "negative": "Elementos a evitar na sintaxe Fooocus"
+        },
+        "Leonardo AI": {
+            "system": "Expert em Leonardo AI. Formate com campos 'Prompt:' e 'Negative Prompt:' separados",
+            "negative": "Conteúdo inadequado para plataformas seguras"
+        },
+        "ComfyUI": {
+            "system": "Mestre em ComfyUI. Use a estrutura [Positive] e [Negative]",
+            "negative": "Problemas comuns em workflows do ComfyUI"
+        },
+        "Automatic1111": {
+            "system": "Especialista em Automatic1111. Use '### Negative prompt:'",
+            "negative": "Artifacts comuns no Stable Diffusion"
+        }
+    }
+
+    try:
+        # Otimização do prompt principal
+        response = requests.post(
+            DEEPSEEK_API_URL,
+            headers=headers,
+            json={
+                "model": "deepseek-chat",
+                "messages": [
+                    {
+                        "role": "system", 
+                        "content": f"{instrucoes[ferramenta]['system']}. Otimize para: {ferramenta}"
+                    },
+                    {
+                        "role": "user",
+                        "content": f"OPTIMIZE PARA {ferramenta.upper()}:\n\n{prompt_base}"
+                    }
+                ],
+                "temperature": 0.7
+            }
+        )
+
+        if response.status_code != 200:
+            raise Exception(f"API Error: {response.status_code} - {response.text}")
+            
+        improved_prompt = response.json()['choices'][0]['message']['content']
+
+        # Geração do prompt negativo
+        negative_response = requests.post(
+            DEEPSEEK_API_URL,
+            headers=headers,
+            json={
+                "model": "deepseek-chat",
+                "messages": [
+                    {
+                        "role": "system",
+                        "content": f"Gere prompt negativo para {ferramenta}. {instrucoes[ferramenta]['negative']}"
+                    },
+                    {
+                        "role": "user",
+                        "content": improved_prompt
+                    }
+                ],
+                "temperature": 0.5
+            }
+        )
+
+        negative_prompt = negative_response.json()['choices'][0]['message']['content'] if negative_response.status_code == 200 else "low quality, blurry"
+
+        return improved_prompt, negative_prompt
+
+    except Exception as e:
+        log_error(f"Falha na API: {str(e)}")
+        return prompt_base, "Erro na otimização. Tente novamente."
+
+# ========== INTERFACE ==========
 def main():
     st.set_page_config(
-        page_title="AI Prompt Generator Pro",
-        page_icon="✨",
+        page_title="AI Prompt Optimizer Pro",
+        page_icon="🚀",
         layout="wide",
         initial_sidebar_state="expanded"
     )
-    
-    # CSS Personalizado
+
+    # CSS Customizado
     st.markdown("""
         <style>
-        /* Cores principais */
         :root {
-            --primary: #4A90E2;
-            --secondary: #F5F7FA;
+            --primary: #2c3e50;
+            --secondary: #3498db;
+            --background: #ecf0f1;
         }
-        
-        /* Cabeçalho */
-        .stApp header { background-color: var(--primary) !important; }
-        
-        /* Botões */
+
+        .stApp {
+            background-color: var(--background);
+        }
+
         .stButton>button {
-            background-color: var(--primary) !important;
+            background: var(--secondary) !important;
             color: white !important;
             border-radius: 8px;
-            transition: all 0.3s;
+            transition: transform 0.2s;
         }
+
         .stButton>button:hover {
-            opacity: 0.8;
             transform: scale(0.98);
+            opacity: 0.9;
         }
-        
-        /* Sidebar */
-        [data-testid="stSidebar"] {
-            background: var(--secondary) !important;
-            border-right: 1px solid #e0e0e0;
-        }
-        
-        /* Cards de Prompts */
+
         .prompt-card {
             padding: 1rem;
             margin: 0.5rem 0;
+            background: white;
             border-radius: 10px;
-            border: 1px solid #e0e0e0;
-            transition: all 0.2s;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: all 0.3s;
         }
+
         .prompt-card:hover {
-            border-color: var(--primary);
-            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
         }
         </style>
     """, unsafe_allow_html=True)
 
     # Estado da sessão
-    if 'prompts_selecionados' not in st.session_state:
-        st.session_state.prompts_selecionados = []
-    if 'negative_prompt' not in st.session_state:
-        st.session_state.negative_prompt = ""
+    session_defaults = {
+        'prompts': [],
+        'negative': "",
+        'historico': []
+    }
+    for key, value in session_defaults.items():
+        if key not in st.session_state:
+            st.session_state[key] = value
 
-    # ========== Sidebar ==========
+    # Sidebar
     with st.sidebar:
         st.title("⚙️ Controle")
         
-        # Debug Info
-        if DEBUG:
-            st.subheader("🔍 Debug Mode")
-            st.json({
-                "selected_prompts": st.session_state.prompts_selecionados,
-                "negative_prompt": st.session_state.negative_prompt
-            })
-        
-        # Configurações
-        modelo_selecionado = st.selectbox(
-            "Modelo de IA:",
+        # Seletor de ferramenta
+        ferramenta = st.selectbox(
+            "Ferramenta de IA:",
             ("Midjourney", "Fooocus", "Leonardo AI", "ComfyUI", "Automatic1111"),
             index=0
         )
-        
-        # Otimização
-        if st.button("✨ Otimizar com DeepSeek", help="Gera prompt melhorado e negativo"):
-            if st.session_state.prompts_selecionados:
+
+        # Botão de otimização
+        if st.button("✨ Otimizar Prompt", type="primary"):
+            if st.session_state.prompts:
                 try:
-                    prompt_base = "\n".join(st.session_state.prompts_selecionados)
-                    improved, negative = melhorar_prompt(prompt_base, modelo_selecionado)
-                    st.session_state.prompts_selecionados = [improved]
-                    st.session_state.negative_prompt = negative
+                    prompt_base = "\n".join(st.session_state.prompts)
+                    melhorado, negativo = melhorar_prompt(prompt_base, ferramenta)
+                    st.session_state.prompts = [melhorado]
+                    st.session_state.negative = negativo
+                    st.session_state.historico.append({
+                        "prompt": melhorado,
+                        "ferramenta": ferramenta,
+                        "data": datetime.now().strftime("%d/%m/%Y %H:%M")
+                    })
                     st.success("Otimização concluída!")
                 except Exception as e:
-                    log_error(f"Erro na otimização: {str(e)}")
-                    st.error("Falha na otimização. Verifique logs.")
+                    log_error(str(e))
+                    st.error("Falha na otimização. Verifique os logs.")
             else:
                 st.warning("Adicione prompts antes de otimizar!")
-        
-        # Prompt Final
+
+        # Área de prompts
         st.divider()
         st.subheader("📝 Prompt Final")
         prompt_final = st.text_area(
             "Edite seu prompt:",
-            value="\n".join(st.session_state.prompts_selecionados),
+            value="\n".join(st.session_state.prompts),
             height=200,
-            key="prompt_editavel"
-        )
-        
-        # Prompt Negativo
-        st.subheader("🚫 Prompt Negativo")
-        st.text_area(
-            "Conteúdo a evitar:",
-            value=st.session_state.negative_prompt,
-            height=100,
-            key="negative_prompt_area",
-            disabled=False
+            key="editable_prompt"
         )
 
-    # ========== Área Principal ==========
-    st.title("🔮 AI Prompt Generator Pro")
+        st.subheader("🚫 Prompt Negativo")
+        st.text_area(
+            "Elementos a evitar:",
+            value=st.session_state.negative,
+            height=100,
+            key="negative_prompt_area"
+        )
+
+    # Área principal
+    st.title("🎨 AI Prompt Optimizer Pro")
     
     try:
         df = load_data()
@@ -161,17 +248,24 @@ def main():
                     for prompt in df[df['category'] == categoria]['prompt']:
                         if st.button(
                             prompt,
-                            key=f"btn_{categoria}_{promprompt}",
-                            help=f"Adicionar '{prompt[:20]}...'",
+                            key=f"btn_{categoria}_{prompt[:10]}",
+                            help=f"Adicionar: {prompt[:50]}...",
                             use_container_width=True
                         ):
-                            if prompt not in st.session_state.prompts_selecionados:
-                                st.session_state.prompts_selecionados.append(prompt)
+                            if prompt not in st.session_state.prompts:
+                                st.session_state.prompts.append(prompt)
                                 st.rerun()
+
+        # Seção de histórico
+        st.divider()
+        st.subheader("📜 Histórico de Otimizações")
+        for item in st.session_state.historico:
+            with st.expander(f"{item['ferramenta']} - {item['data']}"):
+                st.code(item['prompt'], language="text")
+
     except Exception as e:
-        log_error(f"Erro na interface principal: {str(e)}")
+        log_error(f"Erro na interface: {str(e)}")
         st.error("Erro crítico na aplicação. Consulte os logs.")
 
-# ========== Execução ==========
 if __name__ == "__main__":
     main()
