@@ -1,14 +1,25 @@
 import streamlit as st
 import pandas as pd
+import csv
 
-# Configuração inicial
 CSV_FILE = "prompts_database_complete.csv"
 
-# Carregar dados do CSV
 def load_data():
-    return pd.read_csv(CSV_FILE)
+    try:
+        # Especificar encoding e delimitador
+        return pd.read_csv(
+            CSV_FILE,
+            delimiter=';',  # Garantir que está usando vírgula
+            header=0,       # Usar primeira linha como cabeçalho
+            encoding='utf-8',
+            quotechar='"',
+            quoting=csv.QUOTE_MINIMAL,
+            on_bad_lines='warn'  # Mostrar linhas problemáticas
+        )
+    except Exception as e:
+        st.error(f"Erro ao carregar CSV: {str(e)}")
+        return pd.DataFrame(columns=['Category', 'Subcategory', 'Item', 'Translation'])
 
-# Interface principal
 def main():
     st.title("🔮 Gerador de Prompts Inteligente")
     
