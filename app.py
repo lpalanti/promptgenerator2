@@ -1,194 +1,177 @@
 import streamlit as st 
 import pandas as pd
 import requests
-from urllib.parse import urlencode
+import traceback
+from datetime import datetime
+from dotenv import load_dotenv
+import os
 
-# Configuração inicial
+# Configurações iniciais
+load_dotenv()  # Carrega variáveis do .env
 CSV_FILE = "prompts_database_complete.csv"
-COLUNAS = ['category', 'prompt']
-DEEPSEEK_API_KEY = "sk-44c48f425dc44730a5180c832ba604b3"
+DEEPSEEK_API_KEY = os.getenv("DEEPSEEK_API_KEY")  # Chave no .env
 DEEPSEEK_API_URL = "https://api.deepseek.com/v1/chat/completions"
 
-# Carregar dados do CSV
+# Debug Mode
+DEBUG = True  # Altere para False em produção
+
+# ========== Funções Principais ==========
 def load_data():
-    return pd.read_csv(
-        CSV_FILE,
-        sep=';',
-        encoding='utf-8',
-        on_bad_lines='warn'
-    )
+    """Carrega dados do CSV com tratamento de erros"""
+    try:
+        df = pd.read_csv(CSV_FILE, sep=';', encoding='utf-8', on_bad_lines='warn')
+        if DEBUG: st.sidebar.success("CSV carregado com sucesso!")
+        return df
+    except Exception as e:
+        st.error(f"Erro crítico ao carregar CSV: {str(e)}")
+        st.stop()
 
-# Função para adaptar prompt para diferentes modelos
-def adaptar_prompt(prompt, modelo):
-    adaptacoes = {
-        "Midjourney": lambda p: f"{p} --v 5 --q 2 --style raw",
-        "Fooocus": lambda p: f"<s>{p}</s> --detailed --realistic",
-        "Leonardo AI": lambda p: f"Prompt: {p}\nNegative Prompt: {st.session_state.negative_prompt}",
-        "ComfyUI": lambda p: f"[Positive] {p} [Negative] {st.session_state.negative_prompt}",
-        "Automatic1111": lambda p: f"{p} ### Negative prompt: {st.session_state.negative_prompt}"
-    }
-    return adaptacoes.get(modelo, lambda p: p)(prompt)
+def log_error(error_msg):
+    """Registra erros em arquivo de log"""
+    with open("app_errors.log", "a") as f:
+        f.write(f"{datetime.now()} - {error_msg}\n")
+    if DEBUG:
+        st.sidebar.error(f"DEBUG: {error_msg}")
 
-# Função para melhorar o prompt usando a API DeepSeek
-def melhorar_prompt(prompt_base, modelo):
-    headers = {
-        "Authorization": f"Bearer {DEEPSEEK_API_KEY}",
-        "Content-Type": "application/json"
-    }
-    
-    # Melhorar prompt positivo
-    system_message = f"""Você é um especialista em melhorar prompts para {modelo}. 
-    Melhore este prompt para seguir as especificações técnicas do modelo e ser mais descritivo, criativo e detalhado."""
-    
-    data = {
-        "model": "deepseek-chat",
-        "messages": [
-            {"role": "system", "content": system_message},
-            {"role": "user", "content": prompt_base}
-        ],
-        "temperature": 0.7
-    }
-    
-    response = requests.post(DEEPSEEK_API_URL, headers=headers, json=data)
-    
-    if response.status_code == 200:
-        improved_prompt = response.json()['choices'][0]['message']['content']
-        
-        # Gerar prompt negativo
-        negative_data = {
-            "model": "deepseek-chat",
-            "messages": [
-                {"role": "system", "content": "Gere um prompt negativo relevante para o prompt fornecido, considerando os principais elementos que devem ser evitados."},
-                {"role": "user", "content": improved_prompt}
-            ],
-            "temperature": 0.5
-        }
-        
-        negative_response = requests.post(DEEPSEEK_API_URL, headers=headers, json=negative_data)
-        
-        if negative_response.status_code == 200:
-            return improved_prompt, negative_response.json()['choices'][0]['message']['content']
-    
-    return prompt_base, "low quality, blurry, distorted"  # Fallback
-
-# Interface principal
+# ========== Interface ==========
 def main():
-    st.set_page_config(layout="wide")
-    st.title("🔮 Gerador de Prompts Inteligente")
-
-    # CSS customizado
+    st.set_page_config(
+        page_title="AI Prompt Generator Pro",
+        page_icon="✨",
+        layout="wide",
+        initial_sidebar_state="expanded"
+    )
+    
+    # CSS Personalizado
     st.markdown("""
         <style>
-        .prompt-box {
-            padding: 0.5rem;
-            margin: 0.2rem 0;
-            border-radius: 5px;
-            border: 1px solid #e1e4e8;
-            cursor: pointer;
-            transition: all 0.2s;
+        /* Cores principais */
+        :root {
+            --primary: #4A90E2;
+            --secondary: #F5F7FA;
         }
-        .prompt-box:hover {
-            background-color: #f8f9fa;
-            border-color: #0366d6;
-        }
+        
+        /* Cabeçalho */
+        .stApp header { background-color: var(--primary) !important; }
+        
+        /* Botões */
         .stButton>button {
-            width: 100%;
+            background-color: var(--primary) !important;
+            color: white !important;
+            border-radius: 8px;
+            transition: all 0.3s;
+        }
+        .stButton>button:hover {
+            opacity: 0.8;
+            transform: scale(0.98);
+        }
+        
+        /* Sidebar */
+        [data-testid="stSidebar"] {
+            background: var(--secondary) !important;
+            border-right: 1px solid #e0e0e0;
+        }
+        
+        /* Cards de Prompts */
+        .prompt-card {
+            padding: 1rem;
+            margin: 0.5rem 0;
+            border-radius: 10px;
+            border: 1px solid #e0e0e0;
             transition: all 0.2s;
         }
-        .stTextArea textarea {
-            min-height: 150px;
+        .prompt-card:hover {
+            border-color: var(--primary);
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
         }
         </style>
     """, unsafe_allow_html=True)
 
-    # Carregar dados
-    try:
-        df = load_data()
-    except Exception as e:
-        st.error(f"Erro ao carregar arquivo: {str(e)}")
-        return
-
-    # Verificar estrutura
-    if not all(col in df.columns for col in COLUNAS):
-        st.error(f"CSV deve ter colunas: {', '.join(COLUNAS)}")
-        return
-
-    # Inicializar session state
+    # Estado da sessão
     if 'prompts_selecionados' not in st.session_state:
         st.session_state.prompts_selecionados = []
     if 'negative_prompt' not in st.session_state:
         st.session_state.negative_prompt = ""
 
-    # Sidebar
+    # ========== Sidebar ==========
     with st.sidebar:
-        st.header("📝 Prompt Final Montado")
+        st.title("⚙️ Controle")
         
-        # Área de edição do prompt
-        prompt_final = "\n".join(st.session_state.prompts_selecionados)
-        st.session_state.prompt_editavel = st.text_area(
-            "Editar Prompt Final:",
-            value=prompt_final,
-            height=200,
-            key="final_prompt"
-        )
-
-        # Seleção de modelo
+        # Debug Info
+        if DEBUG:
+            st.subheader("🔍 Debug Mode")
+            st.json({
+                "selected_prompts": st.session_state.prompts_selecionados,
+                "negative_prompt": st.session_state.negative_prompt
+            })
+        
+        # Configurações
         modelo_selecionado = st.selectbox(
             "Modelo de IA:",
-            ("Midjourney", "Fooocus", "Leonardo AI", "ComfyUI", "Automatic1111", "Outro")
+            ("Midjourney", "Fooocus", "Leonardo AI", "ComfyUI", "Automatic1111"),
+            index=0
         )
-
-        # Botões de ação
-        col1, col2 = st.columns(2)
-        with col1:
-            if st.button("✨ Melhorar Prompt", help="Otimizar usando DeepSeek"):
-                with st.spinner("Otimizando..."):
-                    improved, negative = melhorar_prompt(
-                        st.session_state.prompt_editavel, 
-                        modelo_selecionado
-                    )
-                    st.session_state.prompt_editavel = improved
+        
+        # Otimização
+        if st.button("✨ Otimizar com DeepSeek", help="Gera prompt melhorado e negativo"):
+            if st.session_state.prompts_selecionados:
+                try:
+                    prompt_base = "\n".join(st.session_state.prompts_selecionados)
+                    improved, negative = melhorar_prompt(prompt_base, modelo_selecionado)
+                    st.session_state.prompts_selecionados = [improved]
                     st.session_state.negative_prompt = negative
-                    st.toast("Prompt otimizado com sucesso!", icon="✅")
+                    st.success("Otimização concluída!")
+                except Exception as e:
+                    log_error(f"Erro na otimização: {str(e)}")
+                    st.error("Falha na otimização. Verifique logs.")
+            else:
+                st.warning("Adicione prompts antes de otimizar!")
         
-        with col2:
-            if st.button("🔄 Limpar Tudo"):
-                st.session_state.prompts_selecionados = []
-                st.session_state.prompt_editavel = ""
-                st.session_state.negative_prompt = ""
+        # Prompt Final
+        st.divider()
+        st.subheader("📝 Prompt Final")
+        prompt_final = st.text_area(
+            "Edite seu prompt:",
+            value="\n".join(st.session_state.prompts_selecionados),
+            height=200,
+            key="prompt_editavel"
+        )
         
-        # Prompt negativo
+        # Prompt Negativo
+        st.subheader("🚫 Prompt Negativo")
         st.text_area(
-            "Prompt Negativo:",
+            "Conteúdo a evitar:",
             value=st.session_state.negative_prompt,
             height=100,
-            key="negative_prompt_area"
+            key="negative_prompt_area",
+            disabled=False
         )
 
-        # Prompt adaptado
-        st.divider()
-        st.header("⚙️ Prompt Adaptado")
-        prompt_adaptado = adaptar_prompt(st.session_state.prompt_editavel, modelo_selecionado)
-        st.code(prompt_adaptado, language="text")
-
-    # Lista de prompts por categoria
-    categorias = df['category'].unique()
-    cols = st.columns(3)
+    # ========== Área Principal ==========
+    st.title("🔮 AI Prompt Generator Pro")
     
-    for idx, categoria in enumerate(categorias):
-        with cols[idx % 3]:
-            with st.expander(f"📁 {categoria.upper()}"):
-                prompts = df[df['category'] == categoria]['prompt']
-                for prompt in prompts:
-                    if st.button(
-                        prompt,
-                        key=f"btn_{categoria}_{prompt}",
-                        help="Clique para adicionar ao prompt",
-                        use_container_width=True
-                    ):
-                        if prompt not in st.session_state.prompts_selecionados:
-                            st.session_state.prompts_selecionados.append(prompt)
-                            st.rerun()
+    try:
+        df = load_data()
+        categorias = df['category'].unique()
+        cols = st.columns(3)
+        
+        for idx, categoria in enumerate(categorias):
+            with cols[idx % 3]:
+                with st.expander(f"📁 {categoria.upper()}", expanded=True):
+                    for prompt in df[df['category'] == categoria]['prompt']:
+                        if st.button(
+                            prompt,
+                            key=f"btn_{categoria}_{promprompt}",
+                            help=f"Adicionar '{prompt[:20]}...'",
+                            use_container_width=True
+                        ):
+                            if prompt not in st.session_state.prompts_selecionados:
+                                st.session_state.prompts_selecionados.append(prompt)
+                                st.rerun()
+    except Exception as e:
+        log_error(f"Erro na interface principal: {str(e)}")
+        st.error("Erro crítico na aplicação. Consulte os logs.")
 
+# ========== Execução ==========
 if __name__ == "__main__":
     main()
