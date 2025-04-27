@@ -1,95 +1,94 @@
 import streamlit as st
 import pandas as pd
-import csv
 
-CSV_FILE = "prompts_database_complete.csv"
+# Configuração inicial
+CSV_FILE = "prompts_database.csv"
+COLUNAS = ['category', 'prompt']
 
+# Carregar dados do CSV
 def load_data():
-    try:
-        # Especificar encoding e delimitador
-        return pd.read_csv(
-            CSV_FILE,
-            delimiter=';',  # Garantir que está usando vírgula
-            header=0,       # Usar primeira linha como cabeçalho
-            encoding='utf-8',
-            quotechar='"',
-            quoting=csv.QUOTE_MINIMAL,
-            on_bad_lines='warn'  # Mostrar linhas problemáticas
-        )
-    except Exception as e:
-        st.error(f"Erro ao carregar CSV: {str(e)}")
-        return pd.DataFrame(columns=['Category','Prompt''])
+    return pd.read_csv(
+        CSV_FILE,
+        sep=';',
+        encoding='utf-8',
+        on_bad_lines='warn'
+    )
 
+# Interface principal
 def main():
     st.title("🔮 Gerador de Prompts Inteligente")
     
     # Carregar dados
-    df = load_data()
-    
-    # Sessão para armazenar o prompt
-    if 'selected_items' not in st.session_state:
-        st.session_state.selected_items = []
-    
-    # Sidebar para adicionar novos itens
+    try:
+        df = load_data()
+    except Exception as e:
+        st.error(f"Erro ao carregar arquivo: {str(e)}")
+        return
+
+    # Verificar estrutura
+    if not all(col in df.columns for col in COLUNAS):
+        st.error(f"CSV deve ter colunas: {', '.join(COLUNAS)}")
+        return
+
+    # Sessão para armazenar seleções
+    if 'prompts_selecionados' not in st.session_state:
+        st.session_state.prompts_selecionados = []
+
+    # Sidebar para adicionar novos
     with st.sidebar:
-        st.header("➕ Adicionar Novo Item")
-        with st.form("new_item_form"):
-            category = st.text_input("Categoria")
-            english = st.text_input("Termo em Inglês")
-            portuguese = st.text_input("Tradução em Português")
+        with st.form("new_prompt"):
+            new_category = st.text_input("New Category")
+            new_prompt = st.text_area("New Prompt")
             
-            if st.form_submit_button("Salvar"):
-                if category and subcategory and english and portuguese:
-                    new_row = pd.DataFrame([{
-                        'Category': category,
-                        'Subcategory': subcategory,
-                        'Item': english,
-                        'Translation': portuguese
+            if st.form_submit_button("Adicionar ao Banco"):
+                if new_category and novo_prompt:
+                    new_´rpmpt = pd.DataFrame([{
+                        'category': nova_categoria,
+                        'prompt': new_prompt
                     }])
-                    new_row.to_csv(CSV_FILE, mode='a', header=False, index=False)
-                    st.success("Item adicionado com sucesso!")
+                    
+                    new_prompt.to_csv(
+                        CSV_FILE,
+                        mode='a',
+                        header=False,
+                        sep=';',
+                        index=False
+                    )
+                    st.success("Item adicionado!")
                 else:
-                    st.error("Preencha todos os campos!")
+                    st.warning("Preencha ambos os campos!")
 
     # Construir interface de seleção
-    for category in df['Category'].unique():
-        with st.expander(f"**{category}**"):
-            cat_df = df[df['Category'] == category]
-            for subcategory in cat_df['Subcategory'].unique():
-                st.markdown(f"##### {subcategory}")
-                sub_df = cat_df[cat_df['Subcategory'] == subcategory]
-                cols = st.columns(3)
-                
-                for idx, row in sub_df.iterrows():
-                    col = cols[idx % 3]
-                    translation = row['Translation']
-                    
-                    # HTML/CSS para tooltip
-                    col.markdown(f"""
-                    <div style="position:relative;margin:5px 0;">
-                        <button style="width:100%;padding:8px;margin:2px 0;cursor:pointer;"
-                            onmouseover="this.nextElementSibling.style.display='block'"
-                            onmouseout="this.nextElementSibling.style.display='none'"
-                            onclick="this.classList.toggle('selected')">
-                            {row['Item']}
-                        </button>
-                        <div style="display:none;position:absolute;background:#f0f2f6;padding:5px;border-radius:4px;z-index:1000;">
-                            {translation}
-                        </div>
-                    </div>
-                    """, unsafe_allow_html=True)
-                    
-                    if col.button(f"Selecionar {row['Item']}"):
-                        if row['Item'] not in st.session_state.selected_items:
-                            st.session_state.selected_items.append(row['Item'])
-    
-    # Mostrar prompt construído
+    for category in df['category'].unique():
+        with st.expander(f"**{categoria}**"):
+            prompts = df[df['category'] == category]['prompt']
+            
+            for prompt in prompts:
+                col1, col2 = st.columns([0.8, 0.2])
+                with col1:
+                    st.markdown(f"`{prompt}`")
+                with col2:
+                    if st.button("Selecionar", key=f"btn_{prompt}"):
+                        if prompt not in st.session_state.prompts_selecionados:
+                            st.session_state.prompts_selecionados.append(prompt)
+
+    # Mostrar prompts selecionados
     st.markdown("---")
-    st.subheader("📝 Prompt Final")
-    st.code(" ".join(st.session_state.selected_items))
+    st.subheader("📝 Prompt Final Montado")
     
+    if st.session_state.prompts_selecionados:
+        prompt_final = "\n".join(st.session_state.prompts_selecionados)
+        st.code(prompt_final)
+        
+        if st.button("Copiar Prompt"):
+            st.session_state.prompt_copiado = prompt_final
+            st.toast("Prompt copiado para área de transferência!", icon="✅")
+    else:
+        st.info("Selecione prompts acima para montar seu prompt final")
+
+    # Botão de limpar
     if st.button("Limpar Seleção"):
-        st.session_state.selected_items = []
+        st.session_state.prompts_selecionados = []
 
 if __name__ == "__main__":
     main()
