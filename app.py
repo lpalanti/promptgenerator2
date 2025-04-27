@@ -61,7 +61,7 @@ def main():
 
     # Atualiza o campo com o prompt automático sempre que ele mudar
         if prompt_automatico != st.session_state.prompt_editavel:
-        st.session_state.prompt_editavel = prompt_automatico
+            st.session_state.prompt_editavel = prompt_automatico
 
     # Campo editável
         st.session_state.prompt_editavel = st.text_area(
