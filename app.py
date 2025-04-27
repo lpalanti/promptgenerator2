@@ -46,7 +46,7 @@ def main():
         st.session_state.prompts_selecionados = []
 
     # Captura seleção via URL
-    query_params = st.experimental_get_query_params()
+    query_params = st.query_params()
     selected_prompt = query_params.get("select", [None])[0]
 
     # Sidebar para adicionar novos e visualizar prompt final
