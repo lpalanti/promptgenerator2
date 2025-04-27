@@ -18,7 +18,7 @@ def load_data():
         )
     except Exception as e:
         st.error(f"Erro ao carregar CSV: {str(e)}")
-        return pd.DataFrame(columns=['Category', 'Subcategory', 'Item', 'Translation'])
+        return pd.DataFrame(columns=['Category','Prompt''])
 
 def main():
     st.title("🔮 Gerador de Prompts Inteligente")
@@ -35,7 +35,6 @@ def main():
         st.header("➕ Adicionar Novo Item")
         with st.form("new_item_form"):
             category = st.text_input("Categoria")
-            subcategory = st.text_input("Subcategoria")
             english = st.text_input("Termo em Inglês")
             portuguese = st.text_input("Tradução em Português")
             
