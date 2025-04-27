@@ -46,8 +46,8 @@ def main():
         st.session_state.prompts_selecionados = []
 
     # Captura seleção via URL
-    query_params = st.experimental_get_query_params()
-    selected_prompt = query_params.get("select", [None])[0]
+    query_params = st.query_params
+    selected_prompt = query_params.get("select", None)
 
     # Sidebar para adicionar novos e visualizar prompt final
     with st.sidebar:
@@ -107,6 +107,11 @@ def main():
                     st.markdown(f"[`{prompt}`]({link})")
 
                     # Verifica se foi selecionado via URL
+                    if selected_prompt == prompt_id:
+                        if prompt not in st.session_state.prompts_selecionados:
+                             st.session_state.prompts_selecionados.append(prompt)
+                             # Limpa a URL para não ficar selecionando de novo
+                             st.query_params.clear()# Verifica se foi selecionado via URL
                     if selected_prompt == prompt_id:
                         if prompt not in st.session_state.prompts_selecionados:
                             st.session_state.prompts_selecionados.append(prompt)
