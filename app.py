@@ -16,8 +16,18 @@ def load_data():
 
 # Interface principal
 def main():
+    st.set_page_config(layout="wide")  # Para usar melhor o espaço na tela
     st.title("🔮 Gerador de Prompts Inteligente")
-    
+
+    # CSS para reduzir o tamanho dos títulos dos expansores
+    st.markdown("""
+        <style>
+        .streamlit-expanderHeader {
+            font-size: 14px;
+        }
+        </style>
+    """, unsafe_allow_html=True)
+
     # Carregar dados
     try:
         df = load_data()
@@ -74,19 +84,23 @@ def main():
                 else:
                     st.warning("Preencha ambos os campos!")
 
-    # Construir interface de seleção
-    for category in df['category'].unique():
-        with st.expander(f"**{category}**"):
-            prompts = df[df['category'] == category]['prompt']
-            
-            for i, prompt in enumerate(prompts):
-                col1, col2 = st.columns([0.8, 0.2])
-                with col1:
-                    st.markdown(f"`{prompt}`")
-                with col2:
-                    if st.button("Selecionar", key=f"btn_{category}_{i}"):
-                        if prompt not in st.session_state.prompts_selecionados:
-                            st.session_state.prompts_selecionados.append(prompt)
+    # Construir interface de seleção em 3 colunas
+    categorias = df['category'].unique()
+    colunas = st.columns(3)  # 3 colunas
+
+    for idx, category in enumerate(categorias):
+        with colunas[idx % 3]:  # Distribui as categorias entre as colunas
+            with st.expander(f"{category}"):
+                prompts = df[df['category'] == category]['prompt']
+
+                for i, prompt in enumerate(prompts):
+                    col1, col2 = st.columns([0.8, 0.2])
+                    with col1:
+                        st.markdown(f"`{prompt}`")
+                    with col2:
+                        if st.button("Selecionar", key=f"btn_{category}_{i}"):
+                            if prompt not in st.session_state.prompts_selecionados:
+                                st.session_state.prompts_selecionados.append(prompt)
 
 if __name__ == "__main__":
     main()
