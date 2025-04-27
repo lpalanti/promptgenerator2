@@ -1,31 +1,20 @@
-Block,Category,Subcategory,Item
-Bloco 1,Estilo Visual & Direção de Arte,Color Grading & LUTs,Teal & Orange blockbuster
-Bloco 1,Estilo Visual & Direção de Arte,Color Grading & LUTs,Sepia vintage wash
-Bloco 1,Estilo Visual & Direção de Arte,Color Grading & LUTs,Bleach bypass high contrast
-Bloco 1,Estilo Visual & Direção de Arte,Color Grading & LUTs,Cyberpunk neon glow (magenta/cyan)
-Bloco 1,Estilo Visual & Direção de Arte,Color Grading & LUTs,Analog film Kodak emulation
-Bloco 1,Estilo Visual & Direção de Arte,Color Grading & LUTs,Warm sunset amber tones
-Bloco 1,Estilo Visual & Direção de Arte,Color Grading & LUTs,Cold blue winter cast
-Bloco 1,Estilo Visual & Direção de Arte,Color Grading & LUTs,Noir monochrome deep blacks
-Bloco 1,Estilo Visual & Direção de Arte,Color Grading & LUTs,"Split toning (cool shadows, warm highlights)"
-Bloco 1,Estilo Visual & Direção de Arte,Color Grading & LUTs,Cross-processed greens/magentas
-Bloco 1,Estilo Visual & Direção de Arte,Color Grading & LUTs,Muted earth tones (desaturated palette)
-Bloco 1,Estilo Visual & Direção de Arte,Color Grading & LUTs,Technicolor oversaturation
-Bloco 1,Estilo Visual & Direção de Arte,Color Grading & LUTs,Vintage faded Polaroid look
-Bloco 1,Estilo Visual & Direção de Arte,Color Grading & LUTs,HDR vivid highlights
-Bloco 1,Estilo Visual & Direção de Arte,Color Grading & LUTs,Desaturated dystopian green cast
-Bloco 1,Estilo Visual & Direção de Arte,Correção de Cor,Skin tone isolation (natural balance)
-Bloco 1,Estilo Visual & Direção de Arte,Correção de Cor,Shadow lifting without noise
-Bloco 1,Estilo Visual & Direção de Arte,Correção de Cor,Highlight recovery (avoid clipping)
-Bloco 1,Estilo Visual & Direção de Arte,Correção de Cor,White balance cool daylight
-Bloco 1,Estilo Visual & Direção de Arte,Correção de Cor,White balance warm tungsten
-Bloco 1,Estilo Visual & Direção de Arte,Correção de Cor,Midtone contrast push
-Bloco 1,Estilo Visual & Direção de Arte,Correção de Cor,Saturation vibrancy boost
-Bloco 1,Estilo Visual & Direção de Arte,Correção de Cor,Hue shifting specific tones (ex: greens to teal)
-Bloco 1,Estilo Visual & Direção de Arte,Correção de Cor,Clipping zone alerts (highlight warnings)
-Bloco 1,Estilo Visual & Direção de Arte,Correção de Cor,Match shot-to-shot consistency
-Bloco 1,Estilo Visual & Direção de Arte,Correção de Cor,Reduce color banding in gradients
-Bloco 1,Estilo Visual & Direção de Arte,Correção de Cor,Enhance foliage greens
-Bloco 1,Estilo Visual & Direção de Arte,Correção de Cor,Neutralize color casts
-Bloco 1,Estilo Visual & Direção de Arte,Correção de Cor,Preserve black levels
-Bloco 1,Estilo Visual & Direção de Arte,Correção de Cor,Balance color wheel adjustments
+Category,Subcategory,Item
+Renderização & Processamento,Sampling & Noise Reduction,AI denoising,Optix, Intel Open Image
+Renderização & Processamento,Sampling & Noise Reduction,Temporal denoising,video frame blending
+Renderização & Processamento,Sampling & Noise Reduction,Path tracing sample increase,
+Renderização & Processamento,Sampling & Noise Reduction,Adaptive sampling,more detail where needed
+Renderização & Processamento,Sampling & Noise Reduction,Noise threshold control,
+Renderização & Processamento,Sampling & Noise Reduction,Firefly removal,random pixel noise
+Renderização & Processamento,Sampling & Noise Reduction,Multi-sample anti-aliasing,MSAA
+Renderização & Processamento,Sampling & Noise Reduction,Temporal super-sampling,TAA
+Renderização & Processamento,Sampling & Noise Reduction,Noise patterns for creative effect,
+Renderização & Processamento,Sampling & Noise Reduction,Layered noise reduction passes,
+Renderização & Processamento,Sampling & Noise Reduction,Selective denoise,preserve details
+Renderização & Processamento,Sampling & Noise Reduction,Dithering to reduce banding,
+Renderização & Processamento,Sampling & Noise Reduction,Sample clamping,limit extremes
+Renderização & Processamento,Sampling & Noise Reduction,AI texture restoration,remove noise from specific textures
+Renderização & Processamento,Sampling & Noise Reduction,Z-depth noise filtering,
+Renderização & Processamento,Resolution & Upscaling,AI Gigapixel upscaling,image
+Renderização & Processamento,Resolution & Upscaling,AI frame upscaling,video
+Renderização & Processamento,Resolution & Upscaling,Tile-based rendering for ultra-high res,
+Renderização & Processamento,Resolution & Upscaling,Subpixel enhancement,
